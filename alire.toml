@@ -1,0 +1,11 @@
+name = "sistema_bancario"
+description = "Banking system implementation in Ada"
+version = "0.1.0-dev"
+
+authors = ["Santiago Murillo, Bryan Guano"]
+maintainers = ["Santiago Murillo, Bryan Guano <example@example.com>"]
+licenses = "MIT"
+website = ""
+tags = []
+
+executables = ["main"]

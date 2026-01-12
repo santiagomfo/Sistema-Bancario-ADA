@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "AdaCore.ada",
+    "eamodio.gitlens"
+  ],
+  "unwantedRecommendations": []
+}

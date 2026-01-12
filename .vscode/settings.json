@@ -1,0 +1,27 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+
+  "[ada]": {
+    "editor.tabSize": 3
+  },
+
+  "search.exclude": {
+    "alire/cache": true,
+    "**/obj": true,
+    "**/bin": true
+  },
+
+  // Files to exclude from explorer
+  "files.exclude": {
+    "**/*.ali": true,
+    "**/*.o": true,
+    "**/obj": true,
+    "**/bin": true,
+    "**/share": true
+  },
+
+  // Recommended line width for Ada code (optional, comment out if not using formatter)
+  "editor.rulers": [80, 120]
+}
