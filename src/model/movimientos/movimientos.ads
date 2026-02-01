@@ -1,15 +1,15 @@
 with Ada.Calendar;
 with Ada.Strings.Bounded;
-with Lenght;
+with Length;
 
-package Movimiento is
+package Model.Movimiento is
    pragma Pure;
 
-   MAX_DESCRIPCION : constant := Lenght.MAX_TEXTO_LARGO;
+   MAX_DESCRIPCION : constant := Length.MAX_TEXTO_LARGO;
    subtype Id_Movimiento_Type is Natural range 1 .. Natural'Last;
    type Dinero_Type is delta 0.01 digits Shared_Types.MAX_DINERO;
    type Tipo_Movimiento_Enum is (Deposito, Retiro, Transferencia, Interes);
-   package Descripcion_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => Lenght.MAX_TEXTO_LARGO);
+   package Descripcion_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => Length.MAX_TEXTO_LARGO);
    use Descripcion_Str;
 
    type Movimiento_Type (Tipo : Tipo_Movimiento_Enum) is private;
@@ -20,15 +20,15 @@ package Movimiento is
       Descripcion  : String;
       Tipo         : Tipo_Movimiento_Enum;
       Monto_Maximo : Dinero_Type;
-      Origen       : Natural := 0;
-      Destino      : Natural := 0)
+      Cuenta_Origen : Natural := 0;
+      Cuenta_Destino : Natural := 0)
       return Movimiento_Type
    with
       Pre =>
-        (if Tipo = Deposito or Tipo = Interes then Destino /= 0) and
-        (if Tipo = Retiro then Origen /= 0) and
-        (if Tipo = Transferencia then Origen /= 0 and Destino /= 0) and
-        (Descripcion'Length <= Lenght.MAX_TEXTO_LARGO);
+        (if Tipo = Deposito or Tipo = Interes then Cuenta_Destino /= 0) and
+        (if Tipo = Retiro then Cuenta_Origen /= 0) and
+        (if Tipo = Transferencia then Cuenta_Origen /= 0 and Cuenta_Destino /= 0) and
+        (Descripcion'Length <= Length.MAX_TEXTO_LARGO);
 
    function Get_Id (M : Movimiento_Type) return Id_Movimiento_Type;
    function Get_Monto (M : Movimiento_Type) return Dinero_Type;
@@ -49,15 +49,15 @@ private
 
       case Tipo is
          when Deposito | Interes =>
-            Cta_Destino_Solo : Natural;
+            Cuenta_Destino_Solo : Natural;
 
          when Retiro =>
-            Cta_Origen_Solo  : Natural;
+            Cuenta_Origen_Solo  : Natural;
 
          when Transferencia =>
-            Cta_Origen_Transf  : Natural;
-            Cta_Destino_Transf : Natural;
+            Cuenta_Origen_Transf  : Natural;
+            Cuenta_Destino_Transf : Natural;
       end case;
    end record;
 
-end Movimiento;
+end Model.Movimiento;

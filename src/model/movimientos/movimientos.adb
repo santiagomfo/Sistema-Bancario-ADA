@@ -1,13 +1,13 @@
-package body Movimiento is
+package body Model.Movimiento is
 
    function Crear_Movimiento
-     (Id           : Id_Movimiento_Type;
-      Monto        : Dinero_Type;
-      Descripcion  : String;
-      Tipo         : Tipo_Movimiento_Enum;
-      Monto_Maximo : Dinero_Type;
-      Origen       : Natural := 0;
-      Destino      : Natural := 0)
+     (Id            : Id_Movimiento_Type;
+      Monto         : Dinero_Type;
+      Descripcion   : String;
+      Tipo          : Tipo_Movimiento_Enum;
+      Monto_Maximo  : Dinero_Type;
+      Cuenta_Origen : Natural := 0;
+      Cuenta_Destino : Natural := 0)
       return Movimiento_Type
    is
       Desc_Bounded : constant Bounded_String := To_Bounded_String (Descripcion);
@@ -15,32 +15,32 @@ package body Movimiento is
    begin
       case Tipo is
          when Deposito | Interes =>
+            return (Tipo              => Tipo,
+                    Id                => Id,
+                    Monto             => Monto,
+                    Fecha             => Ahora,
+                    Descripcion       => Desc_Bounded,
+                    Monto_Maximo      => Monto_Maximo,
+                    Cuenta_Destino_Solo => Cuenta_Destino);
+
+         when Retiro =>
             return (Tipo             => Tipo,
                     Id               => Id,
                     Monto            => Monto,
                     Fecha            => Ahora,
                     Descripcion      => Desc_Bounded,
                     Monto_Maximo     => Monto_Maximo,
-                    Cta_Destino_Solo => Destino);
-
-         when Retiro =>
-            return (Tipo            => Tipo,
-                    Id              => Id,
-                    Monto           => Monto,
-                    Fecha           => Ahora,
-                    Descripcion     => Desc_Bounded,
-                    Monto_Maximo    => Monto_Maximo,
-                    Cta_Origen_Solo => Origen);
+                    Cuenta_Origen_Solo => Cuenta_Origen);
 
          when Transferencia =>
-            return (Tipo               => Tipo,
-                    Id                 => Id,
-                    Monto              => Monto,
-                    Fecha              => Ahora,
-                    Descripcion        => Desc_Bounded,
-                    Monto_Maximo       => Monto_Maximo,
-                    Cta_Origen_Transf  => Origen,
-                    Cta_Destino_Transf => Destino);
+            return (Tipo                => Tipo,
+                    Id                  => Id,
+                    Monto               => Monto,
+                    Fecha               => Ahora,
+                    Descripcion         => Desc_Bounded,
+                    Monto_Maximo        => Monto_Maximo,
+                    Cuenta_Origen_Transf  => Cuenta_Origen,
+                    Cuenta_Destino_Transf => Cuenta_Destino);
       end case;
    end Crear_Movimiento;
 
@@ -68,9 +68,9 @@ package body Movimiento is
    begin
       case M.Tipo is
          when Retiro =>
-            return M.Cta_Origen_Solo;
+            return M.Cuenta_Origen_Solo;
          when Transferencia =>
-            return M.Cta_Origen_Transf;
+            return M.Cuenta_Origen_Transf;
          when Deposito | Interes =>
             return 0;
       end case;
@@ -80,12 +80,12 @@ package body Movimiento is
    begin
       case M.Tipo is
          when Deposito | Interes =>
-            return M.Cta_Destino_Solo;
+            return M.Cuenta_Destino_Solo;
          when Transferencia =>
-            return M.Cta_Destino_Transf;
+            return M.Cuenta_Destino_Transf;
          when Retiro =>
             return 0;
       end case;
    end Get_Destino;
 
-end Movimiento;
+end Model.Movimiento;
