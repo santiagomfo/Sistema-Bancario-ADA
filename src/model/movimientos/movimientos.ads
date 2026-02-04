@@ -2,13 +2,12 @@ with Ada.Calendar;
 with Ada.Strings.Bounded;
 with Length;
 
-package Model.Movimiento is
-   pragma Pure;
+package Movimientos is
 
    MAX_DESCRIPCION : constant := Length.MAX_TEXTO_LARGO;
 
    subtype Id_Movimiento_Type is Natural range 1 .. Natural'Last;
-   type Dinero_Type is delta 0.01 digits Shared_Types.MAX_DINERO;
+   type Dinero_Type is delta 0.01 digits Length.MAX_DINERO;
    type Tipo_Movimiento_Enum is (Deposito, Retiro, Transferencia, Interes);
    package Descripcion_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => Length.MAX_TEXTO_LARGO);
    use Descripcion_Str;
@@ -61,4 +60,4 @@ private
       end case;
    end record;
 
-end Model.Movimiento;
+end Movimientos;

@@ -1,4 +1,4 @@
-package body Model.Movimiento is
+package body Movimientos is
 
    function Crear_Movimiento
      (Id            : Id_Movimiento_Type;
@@ -88,4 +88,4 @@ package body Model.Movimiento is
       end case;
    end Get_Destino;
 
-end Model.Movimiento;
+end Movimientos;

@@ -1,6 +1,6 @@
-package body Logic.Transacciones is
+package body Movimiento_Service is
 
-   package Mov renames Model.Movimiento;
+   package Mov renames Movimientos;
    package Cta renames Model.Cuentas;
 
    LIMITE_TRANSACCION : constant Mov.Dinero_Type := Mov.Dinero_Type(Length.MAX_TRANSACCION);
@@ -74,4 +74,4 @@ package body Logic.Transacciones is
       Cta.Acreditar(Cta_Destino, Monto);
    end Transferencia;
 
-end Logic.Movimiento_Service;
+end Movimiento_Service;
