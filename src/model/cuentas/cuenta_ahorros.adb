@@ -1,4 +1,17 @@
 package body Cuenta_Ahorros is
+   use type Cuentas.Saldo_Type;
+
+   overriding function Crear_Cuenta
+     (Saldo         : Cuentas.Saldo_Type;
+      Estado        : Cuentas.Estado_Type)
+      return Cuenta_Ahorros_Type
+   is
+   begin
+      if Saldo < 0.0 then
+         raise Program_Error with "Saldo inicial negativo no permitido en Cuenta Ahorros";
+      end if;
+      return Crear_Cuenta_Ahorros (Saldo_Ahorros_Type (Saldo), Estado);
+   end Crear_Cuenta;
 
    function Crear_Cuenta_Ahorros
      (Saldo         : Saldo_Ahorros_Type;

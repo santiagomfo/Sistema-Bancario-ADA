@@ -3,6 +3,7 @@ with Cuenta_Corriente;
 with Cuentas;
 
 package body Clientes_Service is
+   use type Cuentas.Saldo_Type;
 
    package Cli renames Clientes;
 

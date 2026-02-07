@@ -2,6 +2,7 @@ with Cuentas;
 with Length;
 
 package Cuenta_Ahorros is
+   use type Cuentas.Saldo_Type;
 
    type Tasa_Interes_Type is delta 0.01 range 0.0 .. Length.MAX_TASA_INTERES;
 
@@ -9,6 +10,11 @@ package Cuenta_Ahorros is
 
    subtype Saldo_Ahorros_Type is Cuentas.Saldo_Type with
       Dynamic_Predicate => Saldo_Ahorros_Type >= 0.0;
+
+   overriding function Crear_Cuenta
+     (Saldo         : Cuentas.Saldo_Type;
+      Estado        : Cuentas.Estado_Type)
+      return Cuenta_Ahorros_Type;
 
    function Crear_Cuenta_Ahorros
      (Saldo         : Saldo_Ahorros_Type;

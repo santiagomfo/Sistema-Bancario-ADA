@@ -1,5 +1,14 @@
 package body Cuenta_Corriente is
 
+   overriding function Crear_Cuenta
+     (Saldo         : Cuentas.Saldo_Type;
+      Estado        : Cuentas.Estado_Type)
+      return Cuenta_Corriente_Type
+   is
+   begin
+      return Crear_Cuenta_Corriente (Saldo, Estado);
+   end Crear_Cuenta;
+
    function Crear_Cuenta_Corriente
      (Saldo             : Cuentas.Saldo_Type;
       Estado            : Cuentas.Estado_Type)
