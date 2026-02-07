@@ -5,7 +5,11 @@ package Length is
    MAX_TEXTO_CORTO   : constant := 50;
    MAX_TEXTO_LARGO : constant := 150;
    MAX_TELEFONO    : constant := 15;
-   MAX_DINERO    : constant := 10;
+   MAX_NUMERO_CUENTA : constant := 10;
+   MAX_DINERO      : constant := 10;
+
+   MIN_SALDO         : constant := -2000.00;
+   MAX_SALDO         : constant := 1_000_000.00;
    MAX_TRANSACCION : constant := 5000.00;
 
 end Length;
