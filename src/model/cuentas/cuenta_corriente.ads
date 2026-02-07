@@ -12,14 +12,12 @@ package Cuenta_Corriente is
      (Numero_Cuenta     : String;
       Saldo             : Cuentas.Saldo_Type;
       Estado            : Cuentas.Estado_Type;
-      Cliente           : Cuentas.Id_Cliente_Type;
-      Limite_Sobregiro  : Limite_Sobregiro_Type;
-      Interes_Sobregiro : Interes_Sobregiro_Type)
+      Cliente           : Cuentas.Id_Cliente_Type)
       return Cuenta_Corriente_Type
    with
       Pre =>
          Numero_Cuenta'Length = Cuentas.NUMERO_CUENTA_LEN and
-         Saldo >= -Cuentas.Saldo_Type (Limite_Sobregiro);
+         Saldo >= -Cuentas.Saldo_Type (Length.DEFAULT_LIMITE_SOBREGIRO);
 
    function Get_Limite_Sobregiro (C : Cuenta_Corriente_Type) return Limite_Sobregiro_Type;
    function Get_Interes_Sobregiro (C : Cuenta_Corriente_Type) return Interes_Sobregiro_Type;

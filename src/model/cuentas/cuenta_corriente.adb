@@ -4,17 +4,15 @@ package body Cuenta_Corriente is
      (Numero_Cuenta     : String;
       Saldo             : Cuentas.Saldo_Type;
       Estado            : Cuentas.Estado_Type;
-      Cliente           : Cuentas.Id_Cliente_Type;
-      Limite_Sobregiro  : Limite_Sobregiro_Type;
-      Interes_Sobregiro : Interes_Sobregiro_Type)
+      Cliente           : Cuentas.Id_Cliente_Type)
       return Cuenta_Corriente_Type
    is
       Base : constant Cuentas.Cuenta_Type :=
          Cuentas.Crear_Cuenta (Numero_Cuenta, Saldo, Estado, Cliente);
    begin
       return (Base with
-         Limite_Sobregiro  => Limite_Sobregiro,
-         Interes_Sobregiro => Interes_Sobregiro);
+         Limite_Sobregiro  => Length.DEFAULT_LIMITE_SOBREGIRO,
+         Interes_Sobregiro => Length.DEFAULT_INTERES_SOBREGIRO);
    end Crear_Cuenta_Corriente;
 
    function Get_Limite_Sobregiro (C : Cuenta_Corriente_Type) return Limite_Sobregiro_Type is
