@@ -13,8 +13,7 @@ package Cuenta_Ahorros is
    function Crear_Cuenta_Ahorros
      (Numero_Cuenta : String;
       Saldo         : Saldo_Ahorros_Type;
-      Estado        : Cuentas.Estado_Type;
-      Cliente       : Cuentas.Id_Cliente_Type)
+      Estado        : Cuentas.Estado_Type)
       return Cuenta_Ahorros_Type
    with
       Pre => Numero_Cuenta'Length = Cuentas.NUMERO_CUENTA_LEN;

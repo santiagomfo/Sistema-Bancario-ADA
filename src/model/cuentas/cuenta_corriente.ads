@@ -11,8 +11,7 @@ package Cuenta_Corriente is
    function Crear_Cuenta_Corriente
      (Numero_Cuenta     : String;
       Saldo             : Cuentas.Saldo_Type;
-      Estado            : Cuentas.Estado_Type;
-      Cliente           : Cuentas.Id_Cliente_Type)
+      Estado            : Cuentas.Estado_Type)
       return Cuenta_Corriente_Type
    with
       Pre =>

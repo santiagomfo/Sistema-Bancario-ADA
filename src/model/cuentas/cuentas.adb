@@ -3,8 +3,7 @@ package body Cuentas is
    function Crear_Cuenta
      (Numero_Cuenta : String;
       Saldo         : Saldo_Type;
-      Estado        : Estado_Type;
-      Cliente       : Id_Cliente_Type)
+      Estado        : Estado_Type)
       return Cuenta_Type
    is
    begin
@@ -12,8 +11,7 @@ package body Cuentas is
          Numero_Cuenta  => Numero_Cuenta,
          Saldo          => Saldo,
          Fecha_Apertura => Ada.Calendar.Clock,
-         Estado         => Estado,
-         Cliente        => Cliente
+         Estado         => Estado
       );
    end Crear_Cuenta;
 
@@ -36,11 +34,6 @@ package body Cuentas is
    begin
       return C.Estado;
    end Get_Estado;
-
-   function Get_Cliente (C : Cuenta_Type) return Id_Cliente_Type is
-   begin
-      return C.Cliente;
-   end Get_Cliente;
 
    procedure Set_Saldo (C : in out Cuenta_Type; Saldo : Saldo_Type) is
    begin

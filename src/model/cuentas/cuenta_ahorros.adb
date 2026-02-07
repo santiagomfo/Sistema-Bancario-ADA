@@ -3,12 +3,11 @@ package body Cuenta_Ahorros is
    function Crear_Cuenta_Ahorros
      (Numero_Cuenta : String;
       Saldo         : Saldo_Ahorros_Type;
-      Estado        : Cuentas.Estado_Type;
-      Cliente       : Cuentas.Id_Cliente_Type)
+      Estado        : Cuentas.Estado_Type)
       return Cuenta_Ahorros_Type
    is
       Base : constant Cuentas.Cuenta_Type :=
-         Cuentas.Crear_Cuenta (Numero_Cuenta, Saldo, Estado, Cliente);
+         Cuentas.Crear_Cuenta (Numero_Cuenta, Saldo, Estado);
    begin
       return (Base with Tasa_Interes => Length.DEFAULT_TASA_INTERES_AHORROS);
    end Crear_Cuenta_Ahorros;

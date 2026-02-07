@@ -3,12 +3,11 @@ package body Cuenta_Corriente is
    function Crear_Cuenta_Corriente
      (Numero_Cuenta     : String;
       Saldo             : Cuentas.Saldo_Type;
-      Estado            : Cuentas.Estado_Type;
-      Cliente           : Cuentas.Id_Cliente_Type)
+      Estado            : Cuentas.Estado_Type)
       return Cuenta_Corriente_Type
    is
       Base : constant Cuentas.Cuenta_Type :=
-         Cuentas.Crear_Cuenta (Numero_Cuenta, Saldo, Estado, Cliente);
+         Cuentas.Crear_Cuenta (Numero_Cuenta, Saldo, Estado);
    begin
       return (Base with
          Limite_Sobregiro  => Length.DEFAULT_LIMITE_SOBREGIRO,

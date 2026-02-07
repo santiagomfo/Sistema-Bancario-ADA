@@ -1,18 +1,24 @@
 with Clientes;
 with Length;
+with Cuentas;
 
 package Clientes_Service is
 
    Datos_Invalidos : exception;
 
+   type Tipo_Cuenta_Enum is (Ahorros, Corriente);
+
    procedure Crear_Cliente
-     (Resultado  : out Clientes.Cliente_Type;
-      Cedula     : String;
-      Nombre     : String;
-      Apellido   : String;
-      Direccion  : String;
-      Correo     : String;
-      Telefono   : String)
+     (Resultado     : out Clientes.Cliente_Type;
+      Cedula        : String;
+      Nombre        : String;
+      Apellido      : String;
+      Direccion     : String;
+      Correo        : String;
+      Telefono      : String;
+      Tipo_Cuenta   : Tipo_Cuenta_Enum;
+      Numero_Cuenta : String;
+      Saldo_Inicial : Cuentas.Saldo_Type)
    with
       Pre =>
          Cedula'Length > 0 and Cedula'Length <= Clientes.MAX_CEDULA and
@@ -20,7 +26,8 @@ package Clientes_Service is
          Apellido'Length > 0 and Apellido'Length <= Clientes.MAX_APELLIDO and
          Direccion'Length > 0 and Direccion'Length <= Clientes.MAX_DIRECCION and
          Correo'Length > 0 and Correo'Length <= Clientes.MAX_CORREO and
-         Telefono'Length > 0 and Telefono'Length <= Clientes.MAX_TELEFONO;
+         Telefono'Length > 0 and Telefono'Length <= Clientes.MAX_TELEFONO and
+         Numero_Cuenta'Length = Cuentas.NUMERO_CUENTA_LEN;
 
    procedure Actualizar_Cliente
      (Cliente    : in out Clientes.Cliente_Type;
