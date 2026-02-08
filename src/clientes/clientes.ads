@@ -7,7 +7,8 @@ package Clientes is
    MAX_CORREO    : constant := 52;   --  VARCHAR(52)
    MAX_TELEFONO  : constant := 15;   --  VARCHAR(15)
 
-   --  Record: Estructura que contiene los datos de un cliente
+   --  Información completa de un cliente del sistema bancario
+   --  Todos los campos tienen longitud fija según el diccionario de datos
    type Cliente is record
       Cedula    : String (1 .. MAX_CEDULA);
       Nombre    : String (1 .. MAX_NOMBRE);
@@ -17,13 +18,11 @@ package Clientes is
       Telefono  : String (1 .. MAX_TELEFONO);
    end record;
 
-   --  Crear_Cliente: Crea un nuevo cliente con validaciones
-   --  Parámetros:
-   --    C: Record donde se almacenarán los datos del cliente
-   --    Cedula, Nombre, Apellido, etc.: Datos del cliente
-   --  Retorna: True si el cliente fue creado exitosamente, False si hay error
+   --  Crea un nuevo cliente validando todos los campos
+   --  contra sus longitudes máximas
+   --  Retorna False si algún campo excede su longitud o está vacío
    function Crear_Cliente (
-      C         : out Cliente;
+      Nuevo_Cliente : out Cliente;
       Cedula    : String;
       Nombre    : String;
       Apellido  : String;
@@ -32,13 +31,10 @@ package Clientes is
       Telefono  : String
    ) return Boolean;
 
-   --  Actualizar_Cliente: Modifica los datos de un cliente existente
-   --  Parámetros:
-   --    C: Record del cliente a actualizar
-   --    Nombre, Apellido, etc.: Nuevos datos del cliente
-   --  Retorna: True si la actualización fue exitosa, False si hay error
+   --  Actualiza los datos de un cliente existente (excepto la cédula)
+   --  Retorna False si algún campo excede su longitud o está vacío
    function Actualizar_Cliente (
-      C         : in out Cliente;
+      Cliente_Actual : in out Cliente;
       Nombre    : String;
       Apellido  : String;
       Direccion : String;

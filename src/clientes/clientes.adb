@@ -1,11 +1,9 @@
 package body Clientes is
 
    --  Procedimiento privado para copiar un string a un campo de tamaño fijo
-   procedure Copiar_Campo (Destino : out String; Origen : String) is
+   procedure Copiar_Campo (Origen : String; Destino : out String) is
    begin
-      --  Inicializar con espacios en blanco
       Destino := (others => ' ');
-      --  Copiar el contenido desde el origen
       Destino (Destino'First .. Destino'First + Origen'Length - 1) := Origen;
    end Copiar_Campo;
 
@@ -16,7 +14,7 @@ package body Clientes is
    end Esta_En_Rango;
 
    function Crear_Cliente (
-      C         : out Cliente;
+      Nuevo_Cliente : out Cliente;
       Cedula    : String;
       Nombre    : String;
       Apellido  : String;
@@ -25,7 +23,6 @@ package body Clientes is
       Telefono  : String
    ) return Boolean is
    begin
-      --  Validar que todos los campos sean válidos
       if not Esta_En_Rango (Cedula, MAX_CEDULA) then
          return False;
       end if;
@@ -50,19 +47,18 @@ package body Clientes is
          return False;
       end if;
 
-      --  Copiar los datos validados al record
-      Copiar_Campo (C.Cedula, Cedula);
-      Copiar_Campo (C.Nombre, Nombre);
-      Copiar_Campo (C.Apellido, Apellido);
-      Copiar_Campo (C.Direccion, Direccion);
-      Copiar_Campo (C.Correo, Correo);
-      Copiar_Campo (C.Telefono, Telefono);
+      Copiar_Campo (Cedula, Nuevo_Cliente.Cedula);
+      Copiar_Campo (Nombre, Nuevo_Cliente.Nombre);
+      Copiar_Campo (Apellido, Nuevo_Cliente.Apellido);
+      Copiar_Campo (Direccion, Nuevo_Cliente.Direccion);
+      Copiar_Campo (Correo, Nuevo_Cliente.Correo);
+      Copiar_Campo (Telefono, Nuevo_Cliente.Telefono);
 
       return True;
    end Crear_Cliente;
 
    function Actualizar_Cliente (
-      C         : in out Cliente;
+      Cliente_Actual : in out Cliente;
       Nombre    : String;
       Apellido  : String;
       Direccion : String;
@@ -70,7 +66,6 @@ package body Clientes is
       Telefono  : String
    ) return Boolean is
    begin
-      --  Validar que todos los campos sean válidos
       if not Esta_En_Rango (Nombre, MAX_NOMBRE) then
          return False;
       end if;
@@ -91,12 +86,11 @@ package body Clientes is
          return False;
       end if;
 
-      --  Actualizar los campos del cliente
-      Copiar_Campo (C.Nombre, Nombre);
-      Copiar_Campo (C.Apellido, Apellido);
-      Copiar_Campo (C.Direccion, Direccion);
-      Copiar_Campo (C.Correo, Correo);
-      Copiar_Campo (C.Telefono, Telefono);
+      Copiar_Campo (Nombre, Cliente_Actual.Nombre);
+      Copiar_Campo (Apellido, Cliente_Actual.Apellido);
+      Copiar_Campo (Direccion, Cliente_Actual.Direccion);
+      Copiar_Campo (Correo, Cliente_Actual.Correo);
+      Copiar_Campo (Telefono, Cliente_Actual.Telefono);
 
       return True;
    end Actualizar_Cliente;
