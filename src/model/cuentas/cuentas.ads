@@ -29,12 +29,12 @@ package Cuentas is
    procedure Set_Estado (C : in out Cuenta_Type; Estado : Estado_Type);
 
    procedure Acreditar (C : in out Cuenta_Type; Monto : Saldo_Type)
-     with Pre => Monto >= 0.0 and C.Saldo <= Saldo_Type'Last - Monto,
-          Post => C.Saldo = C.Saldo'Old + Monto;
+     with Pre => Monto >= 0.0 and Get_Saldo (C) <= Saldo_Type'Last - Monto,
+          Post => Get_Saldo (C) = Get_Saldo (C)'Old + Monto;
 
    procedure Debitar (C : in out Cuenta_Type; Monto : Saldo_Type)
-     with Pre => Monto >= 0.0 and C.Saldo >= Monto and C.Saldo - Monto >= Length.MIN_SALDO,
-          Post => C.Saldo = C.Saldo'Old - Monto;
+     with Pre => Monto >= 0.0 and Get_Saldo (C) >= Monto and Get_Saldo (C) - Monto >= Length.MIN_SALDO,
+          Post => Get_Saldo (C) = Get_Saldo (C)'Old - Monto;
 
 private
 

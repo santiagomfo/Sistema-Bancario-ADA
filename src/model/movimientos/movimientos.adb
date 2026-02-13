@@ -4,7 +4,7 @@ package body Movimientos is
      (Id            : Id_Movimiento_Type;
       Monto         : Dinero_Type;
       Descripcion   : String;
-      Tipo_Transaccion : Strategies.Tipo_Estrategia;
+      Tipo_Transaccion : Transaccion.Tipo_Estrategia;
       Cuenta_Origen : Natural := 0;
       Cuenta_Destino : Natural := 0)
       return Movimiento_Type
@@ -51,7 +51,7 @@ package body Movimientos is
       return M.Cuenta_Destino;
    end Get_Destino;
 
-   function Get_Tipo_Transaccion (M : Movimiento_Type) return Strategies.Tipo_Estrategia is
+   function Get_Tipo_Transaccion (M : Movimiento_Type) return Transaccion.Tipo_Estrategia is
    begin
       return M.Tipo_Transaccion;
    end Get_Tipo_Transaccion;
