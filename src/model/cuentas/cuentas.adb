@@ -78,9 +78,6 @@ package body Cuentas is
 
    procedure Debitar (C : in out Cuenta_Type; Monto : Saldo_Type) is
    begin
-      if C.Saldo < Monto then
-         raise Saldo_Insuficiente;
-      end if;
       C.Saldo := C.Saldo - Monto;
    end Debitar;
 

@@ -5,7 +5,7 @@ package Cuentas is
 
    NUMERO_CUENTA_LEN : constant := Length.MAX_NUMERO_CUENTA;
 
-   type Saldo_Type is delta 0.01 range Length.MIN_SALDO .. Length.MAX_SALDO;
+   type Saldo_Type is delta 0.01 digits 18;
    type Estado_Type is (Activa, Bloqueada);
 
    Saldo_Insuficiente : exception;
@@ -28,8 +28,13 @@ package Cuentas is
    procedure Set_Saldo (C : in out Cuenta_Type; Saldo : Saldo_Type);
    procedure Set_Estado (C : in out Cuenta_Type; Estado : Estado_Type);
 
-   procedure Acreditar (C : in out Cuenta_Type; Monto : Saldo_Type);
-   procedure Debitar (C : in out Cuenta_Type; Monto : Saldo_Type);
+   procedure Acreditar (C : in out Cuenta_Type; Monto : Saldo_Type)
+     with Pre => Monto >= 0.0 and C.Saldo <= Saldo_Type'Last - Monto,
+          Post => C.Saldo = C.Saldo'Old + Monto;
+
+   procedure Debitar (C : in out Cuenta_Type; Monto : Saldo_Type)
+     with Pre => Monto >= 0.0 and C.Saldo >= Monto and C.Saldo - Monto >= Length.MIN_SALDO,
+          Post => C.Saldo = C.Saldo'Old - Monto;
 
 private
 
