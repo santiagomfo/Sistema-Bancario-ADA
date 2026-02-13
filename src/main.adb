@@ -266,16 +266,16 @@ begin
    Put_Line ("");
    Put_Line ("--- Estado Inicial de Tarjeta ---");
    Put_Line (Tarjeta_Credito_Service.Consultar_Estado_Tarjeta
-             (Tarjeta_Credito.Get_Id (Tarjeta_1.all)));
+             (Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all)));
 
    -- 7.3. Realizar Compra Exitosa
    Put_Line ("");
    Put_Line ("--- Realizando Compra: Laptop $1,200.00 ---");
    begin
       Tarjeta_Credito_Service.Realizar_Compra
-        (Id_Tarjeta  => Tarjeta_Credito.Get_Id (Tarjeta_1.all),
-         Monto       => 1200.00,
-         Descripcion => "Compra de Laptop");
+        (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
+         Monto          => 1200.00,
+         Descripcion    => "Compra de Laptop");
 
       Put_Line ("Compra exitosa!");
       Put_Line ("  Saldo Utilizado: " &
@@ -292,9 +292,9 @@ begin
    Put_Line ("--- Realizando Compra: Celular $800.00 ---");
    begin
       Tarjeta_Credito_Service.Realizar_Compra
-        (Id_Tarjeta  => Tarjeta_Credito.Get_Id (Tarjeta_1.all),
-         Monto       => 800.00,
-         Descripcion => "Compra de Celular");
+        (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
+         Monto          => 800.00,
+         Descripcion    => "Compra de Celular");
 
       Put_Line ("Compra exitosa!");
       Put_Line ("  Saldo Utilizado: " &
@@ -311,9 +311,9 @@ begin
    Put_Line ("--- Intentando Compra que Excede Limite: $4,000.00 (debe fallar) ---");
    begin
       Tarjeta_Credito_Service.Realizar_Compra
-        (Id_Tarjeta  => Tarjeta_Credito.Get_Id (Tarjeta_1.all),
-         Monto       => 4000.00,
-         Descripcion => "Compra grande");
+        (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
+         Monto          => 4000.00,
+         Descripcion    => "Compra grande");
 
       Put_Line ("ERROR: No deberia permitir compra que excede limite!");
    exception
@@ -328,8 +328,8 @@ begin
    Put_Line ("--- Realizando Pago de $500.00 ---");
    begin
       Tarjeta_Credito_Service.Realizar_Pago
-        (Id_Tarjeta => Tarjeta_Credito.Get_Id (Tarjeta_1.all),
-         Monto      => 500.00);
+        (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
+         Monto          => 500.00);
 
       Put_Line ("Pago exitoso!");
       Put_Line ("  Saldo Utilizado: " &
@@ -345,7 +345,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Aplicando Intereses Mensuales (3.50%) ---");
    begin
-      Tarjeta_Credito_Service.Calcular_Aplicar_Interes (Tarjeta_Credito.Get_Id (Tarjeta_1.all));
+      Tarjeta_Credito_Service.Calcular_Aplicar_Interes (Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all));
 
       Put_Line ("Intereses aplicados!");
       Put_Line ("  Nuevo Saldo Utilizado: " &
@@ -361,7 +361,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Estado Final de Tarjeta ---");
    Put_Line (Tarjeta_Credito_Service.Consultar_Estado_Tarjeta
-             (Tarjeta_Credito.Get_Id (Tarjeta_1.all)));
+             (Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all)));
 
 
    Put_Line ("");

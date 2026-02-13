@@ -20,41 +20,41 @@ package Tarjeta_Credito_Service is
      (Tasa_Interes_Mensual  : Tasa_Interes_Type := Length.DEFAULT_TASA_INTERES_TARJETA)
       return Tarjeta_Credito_Access;
 
-   function Obtener_Tarjeta (Id_Tarjeta : Natural) return Tarjeta_Credito_Access
+   function Obtener_Tarjeta (Numero_Tarjeta : String) return Tarjeta_Credito_Access
    with
-      Pre => Id_Tarjeta > 0;
+      Pre => Numero_Tarjeta'Length > 0;
 
    procedure Actualizar_Limite_Credito
-     (Id_Tarjeta    : Natural;
-      Nuevo_Limite  : Limite_Credito_Type)
+     (Numero_Tarjeta : String;
+      Nuevo_Limite   : Limite_Credito_Type)
    with
-      Pre => Id_Tarjeta > 0 and Nuevo_Limite > 0.0;
+      Pre => Numero_Tarjeta'Length > 0 and Nuevo_Limite > 0.0;
 
-   procedure Eliminar_Tarjeta (Id_Tarjeta : Natural)
+   procedure Eliminar_Tarjeta (Numero_Tarjeta : String)
    with
-      Pre => Id_Tarjeta > 0;
+      Pre => Numero_Tarjeta'Length > 0;
 
    -- === OPERACIONES DE NEGOCIO ===
 
    procedure Realizar_Compra
-     (Id_Tarjeta  : Natural;
-      Monto       : Saldo_Type;
-      Descripcion : String)
+     (Numero_Tarjeta : String;
+      Monto          : Saldo_Type;
+      Descripcion    : String)
    with
-      Pre => Id_Tarjeta > 0 and Monto > 0.0;
+      Pre => Numero_Tarjeta'Length > 0 and Monto > 0.0;
 
    procedure Realizar_Pago
-     (Id_Tarjeta : Natural;
-      Monto      : Saldo_Type)
+     (Numero_Tarjeta : String;
+      Monto          : Saldo_Type)
    with
-      Pre => Id_Tarjeta > 0 and Monto > 0.0;
+      Pre => Numero_Tarjeta'Length > 0 and Monto > 0.0;
 
-   procedure Calcular_Aplicar_Interes (Id_Tarjeta : Natural)
+   procedure Calcular_Aplicar_Interes (Numero_Tarjeta : String)
    with
-      Pre => Id_Tarjeta > 0;
+      Pre => Numero_Tarjeta'Length > 0;
 
-   function Consultar_Estado_Tarjeta (Id_Tarjeta : Natural) return String
+   function Consultar_Estado_Tarjeta (Numero_Tarjeta : String) return String
    with
-      Pre => Id_Tarjeta > 0;
+      Pre => Numero_Tarjeta'Length > 0;
 
 end Tarjeta_Credito_Service;

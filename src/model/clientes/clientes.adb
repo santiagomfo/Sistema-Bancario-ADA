@@ -19,7 +19,7 @@ package body Clientes is
          Correo        => Nombres_Str.To_Bounded_String (Correo),
          Telefono      => Telefono_Str.To_Bounded_String (Telefono),
          Numero_Cuenta => Numero_Cuenta,
-         Numero_Tarjeta    => 0
+         Numero_Tarjeta => Numero_Tarjeta_Str.Null_Bounded_String
       );
    end Crear_Cliente;
 
@@ -58,14 +58,19 @@ package body Clientes is
       return C.Numero_Cuenta;
    end Get_Numero_Cuenta;
 
-   function Get_Numero_Tarjeta (C : Cliente_Type) return Natural is
+   function Get_Numero_Tarjeta (C : Cliente_Type) return String is
    begin
-      return C.Numero_Tarjeta;
+      return Numero_Tarjeta_Str.To_String (C.Numero_Tarjeta);
    end Get_Numero_Tarjeta;
 
-   procedure Set_Numero_Tarjeta (C : in out Cliente_Type; Numero_Tarjeta : Natural) is
+   function Tiene_Tarjeta (C : Cliente_Type) return Boolean is
    begin
-      C.Numero_Tarjeta := Numero_Tarjeta;
+      return Numero_Tarjeta_Str.Length (C.Numero_Tarjeta) > 0;
+   end Tiene_Tarjeta;
+
+   procedure Set_Numero_Tarjeta (C : in out Cliente_Type; Numero_Tarjeta : String) is
+   begin
+      C.Numero_Tarjeta := Numero_Tarjeta_Str.To_Bounded_String (Numero_Tarjeta);
    end Set_Numero_Tarjeta;
 
 end Clientes;

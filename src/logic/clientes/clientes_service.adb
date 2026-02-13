@@ -136,7 +136,7 @@ package body Clientes_Service is
       Tarjeta_Nueva := Tarjeta_Credito_Service.Crear_Tarjeta
         (Tasa_Interes_Mensual => Length.DEFAULT_TASA_INTERES_TARJETA);
 
-      Cli.Set_Numero_Tarjeta (Cliente, Tarjeta_Credito.Get_Id (Tarjeta_Nueva.all));
+      Cli.Set_Numero_Tarjeta (Cliente, Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_Nueva.all));
    end Asociar_Tarjeta_Credito;
 
    procedure Crear_Cliente_Con_Tarjeta

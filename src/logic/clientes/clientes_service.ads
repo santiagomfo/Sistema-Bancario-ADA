@@ -51,8 +51,8 @@ package Clientes_Service is
      (Cliente           : in out Clientes.Cliente_Type;
       Tarjeta_Nueva     : out Tarjeta_Credito.Tarjeta_Credito_Access)
    with
-      Pre => Clientes.Get_Numero_Tarjeta (Cliente) = 0,
-      Post => Clientes.Get_Numero_Tarjeta (Cliente) > 0;
+      Pre => not Clientes.Tiene_Tarjeta (Cliente),
+      Post => Clientes.Tiene_Tarjeta (Cliente);
 
    procedure Crear_Cliente_Con_Tarjeta
      (Resultado         : out Clientes.Cliente_Type;

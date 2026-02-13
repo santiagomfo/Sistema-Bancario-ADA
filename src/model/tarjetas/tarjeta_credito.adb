@@ -2,9 +2,6 @@ with Ada.Numerics.Discrete_Random;
 
 package body Tarjeta_Credito is
 
-   -- Contador global para IDs de tarjetas
-   Ultimo_Id : Natural := 0;
-
    -- Generador de números aleatorios para el número de tarjeta
    subtype Digito_Range is Natural range 0 .. 9;
    package Random_Digito is new Ada.Numerics.Discrete_Random (Digito_Range);
@@ -23,11 +20,7 @@ package body Tarjeta_Credito is
       Ahora        : constant Ada.Calendar.Time := Clock;
       Tres_Anios   : constant Duration := 365.0 * 3.0 * 86_400.0; -- 3 años en segundos
    begin
-      -- Asignar ID único
-      Ultimo_Id := Ultimo_Id + 1;
-      Tarjeta.Id := Ultimo_Id;
-
-      -- Generar número de tarjeta aleatorio de 16 dígitos
+      -- Generar número de tarjeta aleatorio de 10 dígitos (identificador único)
       Random_Digito.Reset (Gen);
       for I in Numero'Range loop
          Numero (I) := Character'Val (Character'Pos ('0') + Random_Digito.Random (Gen));
@@ -45,11 +38,6 @@ package body Tarjeta_Credito is
    end Crear_Tarjeta_Credito;
 
    -- Getters
-   function Get_Id (T : Tarjeta_Credito_Type) return Natural is
-   begin
-      return T.Id;
-   end Get_Id;
-
    function Get_Numero_Tarjeta (T : Tarjeta_Credito_Type) return String is
    begin
       return Numero_Tarjeta_Str.To_String (T.Numero_Tarjeta);

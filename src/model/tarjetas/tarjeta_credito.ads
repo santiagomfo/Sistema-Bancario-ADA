@@ -22,7 +22,6 @@ package Tarjeta_Credito is
       return Tarjeta_Credito_Type;
 
    -- Getters
-   function Get_Id (T : Tarjeta_Credito_Type) return Natural;
    function Get_Numero_Tarjeta (T : Tarjeta_Credito_Type) return String;
    function Get_Limite_Credito (T : Tarjeta_Credito_Type) return Limite_Credito_Type;
    function Get_Saldo_Utilizado (T : Tarjeta_Credito_Type) return Saldo_Type;
@@ -66,7 +65,6 @@ package Tarjeta_Credito is
 private
 
    type Tarjeta_Credito_Type is tagged record
-      Id                    : Natural := 0;
       Numero_Tarjeta        : Numero_Tarjeta_Str.Bounded_String;
       Limite_Credito        : Limite_Credito_Type := 0.0;
       Saldo_Utilizado       : Saldo_Type := 0.0;

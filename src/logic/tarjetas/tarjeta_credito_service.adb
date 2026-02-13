@@ -25,21 +25,21 @@ package body Tarjeta_Credito_Service is
       return Nueva_Tarjeta;
    end Crear_Tarjeta;
 
-   function Obtener_Tarjeta (Id_Tarjeta : Natural) return Tarjeta_Credito_Access is
+   function Obtener_Tarjeta (Numero_Tarjeta : String) return Tarjeta_Credito_Access is
    begin
       for Tarjeta of Tarjetas_Store loop
-         if Get_Id (Tarjeta.all) = Id_Tarjeta then
+         if Get_Numero_Tarjeta (Tarjeta.all) = Numero_Tarjeta then
             return Tarjeta;
          end if;
       end loop;
-      raise Tarjeta_No_Encontrada with "Tarjeta con ID" & Id_Tarjeta'Image & " no encontrada";
+      raise Tarjeta_No_Encontrada with "Tarjeta " & Numero_Tarjeta & " no encontrada";
    end Obtener_Tarjeta;
 
    procedure Actualizar_Limite_Credito
-     (Id_Tarjeta    : Natural;
-      Nuevo_Limite  : Limite_Credito_Type)
+     (Numero_Tarjeta : String;
+      Nuevo_Limite   : Limite_Credito_Type)
    is
-      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
    begin
       -- Validar que el nuevo límite no sea menor que el saldo utilizado
       if Nuevo_Limite < Limite_Credito_Type (Get_Saldo_Utilizado (Tarjeta.all)) then
@@ -50,8 +50,8 @@ package body Tarjeta_Credito_Service is
       Set_Limite_Credito (Tarjeta.all, Nuevo_Limite);
    end Actualizar_Limite_Credito;
 
-   procedure Eliminar_Tarjeta (Id_Tarjeta : Natural) is
-      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+   procedure Eliminar_Tarjeta (Numero_Tarjeta : String) is
+      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
    begin
       -- Validar que no tenga deuda pendiente
       if Get_Saldo_Utilizado (Tarjeta.all) > 0.0 then
@@ -60,7 +60,7 @@ package body Tarjeta_Credito_Service is
 
       -- Buscar y eliminar de la colección
       for I in Tarjetas_Store.First_Index .. Tarjetas_Store.Last_Index loop
-         if Get_Id (Tarjetas_Store.Element (I).all) = Id_Tarjeta then
+         if Get_Numero_Tarjeta (Tarjetas_Store.Element (I).all) = Numero_Tarjeta then
             Tarjetas_Store.Delete (I);
             return;
          end if;
@@ -70,11 +70,11 @@ package body Tarjeta_Credito_Service is
    -- === OPERACIONES DE NEGOCIO ===
 
    procedure Realizar_Compra
-     (Id_Tarjeta  : Natural;
-      Monto       : Saldo_Type;
-      Descripcion : String)
+     (Numero_Tarjeta : String;
+      Monto          : Saldo_Type;
+      Descripcion    : String)
    is
-      Tarjeta   : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+      Tarjeta   : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
       Estrategia : constant Transaccion_Tarjeta.Compra_Strategy :=
         Transaccion_Tarjeta.Compra_Strategy'(null record);
    begin
@@ -97,10 +97,10 @@ package body Tarjeta_Credito_Service is
    end Realizar_Compra;
 
    procedure Realizar_Pago
-     (Id_Tarjeta : Natural;
-      Monto      : Saldo_Type)
+     (Numero_Tarjeta : String;
+      Monto          : Saldo_Type)
    is
-      Tarjeta   : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+      Tarjeta   : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
       Estrategia : constant Transaccion_Tarjeta.Pago_Tarjeta_Strategy :=
         Transaccion_Tarjeta.Pago_Tarjeta_Strategy'(null record);
    begin
@@ -117,17 +117,17 @@ package body Tarjeta_Credito_Service is
       Put_Line ("Pago realizado - Monto: " & Monto'Image);
    end Realizar_Pago;
 
-   procedure Calcular_Aplicar_Interes (Id_Tarjeta : Natural) is
-      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+   procedure Calcular_Aplicar_Interes (Numero_Tarjeta : String) is
+      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
    begin
       if Get_Saldo_Utilizado (Tarjeta.all) > 0.0 then
          Aplicar_Interes (Tarjeta.all);
-         Put_Line ("Intereses aplicados a tarjeta" & Id_Tarjeta'Image);
+         Put_Line ("Intereses aplicados a tarjeta " & Numero_Tarjeta);
       end if;
    end Calcular_Aplicar_Interes;
 
-   function Consultar_Estado_Tarjeta (Id_Tarjeta : Natural) return String is
-      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Id_Tarjeta);
+   function Consultar_Estado_Tarjeta (Numero_Tarjeta : String) return String is
+      Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
    begin
       return "=== Estado de Tarjeta ===" & ASCII.LF &
              "Numero: " & Get_Numero_Tarjeta (Tarjeta.all) & ASCII.LF &
