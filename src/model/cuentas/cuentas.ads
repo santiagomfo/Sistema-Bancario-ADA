@@ -8,8 +8,6 @@ package Cuentas is
    type Saldo_Type is delta 0.01 digits 18;
    type Estado_Type is (Activa, Bloqueada);
 
-   Saldo_Insuficiente : exception;
-
    type Cuenta_Type is tagged private;
    type Cuenta_Access is access all Cuenta_Type'Class;
 
