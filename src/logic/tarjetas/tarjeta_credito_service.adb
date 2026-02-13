@@ -69,7 +69,7 @@ package body Tarjeta_Credito_Service is
 
    -- === OPERACIONES DE NEGOCIO ===
 
-   procedure Realizar_Compra
+   procedure Comprar
      (Numero_Tarjeta : String;
       Monto          : Saldo_Type;
       Descripcion    : String)
@@ -94,9 +94,9 @@ package body Tarjeta_Credito_Service is
       Transaccion_Tarjeta.Ejecutar (Estrategia, Tarjeta.all, Monto);
 
       Put_Line ("Compra realizada: " & Descripcion & " - Monto: " & Monto'Image);
-   end Realizar_Compra;
+   end Comprar;
 
-   procedure Realizar_Pago
+   procedure Pagar
      (Numero_Tarjeta : String;
       Monto          : Saldo_Type)
    is
@@ -115,7 +115,7 @@ package body Tarjeta_Credito_Service is
       Transaccion_Tarjeta.Ejecutar (Estrategia, Tarjeta.all, Monto);
 
       Put_Line ("Pago realizado - Monto: " & Monto'Image);
-   end Realizar_Pago;
+   end Pagar;
 
    procedure Calcular_Aplicar_Interes (Numero_Tarjeta : String) is
       Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);

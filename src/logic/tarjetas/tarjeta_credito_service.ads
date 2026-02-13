@@ -36,14 +36,14 @@ package Tarjeta_Credito_Service is
 
    -- === OPERACIONES DE NEGOCIO ===
 
-   procedure Realizar_Compra
+   procedure Comprar
      (Numero_Tarjeta : String;
       Monto          : Saldo_Type;
       Descripcion    : String)
    with
       Pre => Numero_Tarjeta'Length > 0 and Monto > 0.0;
 
-   procedure Realizar_Pago
+   procedure Pagar
      (Numero_Tarjeta : String;
       Monto          : Saldo_Type)
    with

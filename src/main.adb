@@ -272,7 +272,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Realizando Compra: Laptop $1,200.00 ---");
    begin
-      Tarjeta_Credito_Service.Realizar_Compra
+      Tarjeta_Credito_Service.Comprar
         (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
          Monto          => 1200.00,
          Descripcion    => "Compra de Laptop");
@@ -291,7 +291,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Realizando Compra: Celular $800.00 ---");
    begin
-      Tarjeta_Credito_Service.Realizar_Compra
+      Tarjeta_Credito_Service.Comprar
         (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
          Monto          => 800.00,
          Descripcion    => "Compra de Celular");
@@ -310,7 +310,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Intentando Compra que Excede Limite: $4,000.00 (debe fallar) ---");
    begin
-      Tarjeta_Credito_Service.Realizar_Compra
+      Tarjeta_Credito_Service.Comprar
         (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
          Monto          => 4000.00,
          Descripcion    => "Compra grande");
@@ -327,7 +327,7 @@ begin
    Put_Line ("");
    Put_Line ("--- Realizando Pago de $500.00 ---");
    begin
-      Tarjeta_Credito_Service.Realizar_Pago
+      Tarjeta_Credito_Service.Pagar
         (Numero_Tarjeta => Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all),
          Monto          => 500.00);
 
