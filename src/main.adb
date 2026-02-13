@@ -3,17 +3,21 @@ with Ada.Exceptions;
 with Clientes;
 with Clientes_Service;
 with Cuentas;
-with Movimiento_Service;
+with Transaccion_Service;
+with Transaccion;
 with Movimientos;
 
 procedure Main is
    Cliente_1, Cliente_2 : Clientes.Cliente_Type;
    Cuenta_1, Cuenta_2   : Cuentas.Cuenta_Access;
 
-   -- Variables for results with specific discriminants
-   Mov_Res_Dep : Movimientos.Movimiento_Type (Movimientos.Deposito);
-   Mov_Res_Ret : Movimientos.Movimiento_Type (Movimientos.Retiro);
-   Mov_Res_Tra : Movimientos.Movimiento_Type (Movimientos.Transferencia);
+   -- Variables para IDs de movimientos
+   Id_Mov_1, Id_Mov_2, Id_Mov_3 : Movimientos.Id_Movimiento_Type;
+
+   -- Estrategias para transacciones
+   Estrategia_Deposito      : Transaccion.Deposito_Strategy;
+   Estrategia_Retiro        : Transaccion.Retiro_Strategy;
+   Estrategia_Transferencia : Transaccion.Transferencia_Strategy;
 begin
    Put_Line ("--- Sistema Bancario - Inicio ---");
 
@@ -77,12 +81,13 @@ begin
    -- 3. Depósito en Cuenta 1
    -------------------------------------------------------
    Put_Line ("--- Realizando Deposito en Cuenta 1 (+100.00) ---");
-   Movimiento_Service.Deposito
-     (Id_Mov         => 1,
-      Cuenta_Destino => Cuenta_1.all,
-      Monto          => 100.00,
-      Descripcion    => "Deposito inicial",
-      Resultado      => Mov_Res_Dep);
+   Transaccion_Service.Ejecutar_Transaccion
+     (Estrategia    => Estrategia_Deposito,
+      C_Origen      => Cuenta_1.all,
+      C_Destino     => Cuenta_1.all,
+      Monto         => 100.00,
+      Descripcion   => "Deposito inicial",
+      Id_Movimiento => Id_Mov_1);
 
    Put_Line ("Nuevo Saldo Cliente 1: " &
              Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_1.all)));
@@ -92,12 +97,13 @@ begin
    -------------------------------------------------------
    Put_Line ("");
    Put_Line ("--- Realizando Retiro en Cuenta 1 (-50.00) ---");
-   Movimiento_Service.Retiro
-     (Id_Mov        => 2,
-      Cuenta_Origen => Cuenta_1.all,
+   Transaccion_Service.Ejecutar_Transaccion
+     (Estrategia    => Estrategia_Retiro,
+      C_Origen      => Cuenta_1.all,
+      C_Destino     => Cuenta_1.all,
       Monto         => 50.00,
       Descripcion   => "Retiro para gastos",
-      Resultado     => Mov_Res_Ret);
+      Id_Movimiento => Id_Mov_2);
 
    Put_Line ("Nuevo Saldo Cliente 1: " &
              Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_1.all)));
@@ -107,13 +113,13 @@ begin
    -------------------------------------------------------
    Put_Line ("");
    Put_Line ("--- Transferencia de Cliente 1 a Cliente 2 (200.00) ---");
-   Movimiento_Service.Transferencia
-     (Id_Mov         => 3,
-      Cuenta_Origen  => Cuenta_1.all,
-      Cuenta_Destino => Cuenta_2.all,
-      Monto          => 200.00,
-      Descripcion    => "Pago de deuda",
-      Resultado      => Mov_Res_Tra);
+   Transaccion_Service.Ejecutar_Transaccion
+     (Estrategia    => Estrategia_Transferencia,
+      C_Origen      => Cuenta_1.all,
+      C_Destino     => Cuenta_2.all,
+      Monto         => 200.00,
+      Descripcion   => "Pago de deuda",
+      Id_Movimiento => Id_Mov_3);
 
    Put_Line ("Saldo Final Cliente 1: " &
              Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_1.all)));
