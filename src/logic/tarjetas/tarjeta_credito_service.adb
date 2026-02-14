@@ -105,13 +105,13 @@ package body Tarjeta_Credito_Service is
       return Transaccion_Tarjeta.Ejecutar (Estrategia, Tarjeta.all, Monto);
    end Ejecutar_Operacion;
 
-   procedure Calcular_Aplicar_Interes (Numero_Tarjeta : String) is
+   procedure Aplicar_Interes (Numero_Tarjeta : String) is
       Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);
    begin
       if Get_Saldo_Utilizado (Tarjeta.all) > 0.0 then
          Aplicar_Interes (Tarjeta.all);
       end if;
-   end Calcular_Aplicar_Interes;
+   end Aplicar_Interes;
 
    function Consultar_Estado_Tarjeta (Numero_Tarjeta : String) return String is
       Tarjeta : constant Tarjeta_Credito_Access := Obtener_Tarjeta (Numero_Tarjeta);

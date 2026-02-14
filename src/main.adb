@@ -376,7 +376,7 @@ begin
    -- 7.7. Calcular y Aplicar Intereses
    Put_Line ("");
    Put_Line ("--- Aplicando Intereses Mensuales (3.50%) ---");
-   Tarjeta_Credito_Service.Calcular_Aplicar_Interes
+   Tarjeta_Credito_Service.Aplicar_Interes
      (Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all));
 
    Put_Line ("Intereses aplicados a tarjeta " &

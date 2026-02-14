@@ -38,7 +38,7 @@ package Tarjeta_Credito_Service is
    with
       Pre => Numero_Tarjeta'Length > 0 and Monto > 0.0;
 
-   procedure Calcular_Aplicar_Interes (Numero_Tarjeta : String)
+   procedure Aplicar_Interes (Numero_Tarjeta : String)
    with
       Pre => Numero_Tarjeta'Length > 0;
 
