@@ -1,30 +1,38 @@
-with Ada.Numerics.Discrete_Random;
+with Ada.Strings.Fixed;
+with Ada.Strings;
 
 package body Tarjeta_Credito is
+   use Numero_Tarjeta_Str;
 
-   -- Generador de números aleatorios para el número de tarjeta
-   subtype Digito_Range is Natural range 0 .. 9;
-   package Random_Digito is new Ada.Numerics.Discrete_Random (Digito_Range);
-   Gen : Random_Digito.Generator;
+   Ultimo_Numero : Natural := 0;
+
+   function Generar_Numero_Tarjeta return Numero_Tarjeta_Str.Bounded_String is
+      Num_Str : String := Natural'Image (Ultimo_Numero);
+      Trimmed : constant String := Ada.Strings.Fixed.Trim (Num_Str, Ada.Strings.Left);
+      Result  : String (1 .. Length.MAX_NUMERO_TARJETA) := (others => '0');
+   begin
+      if Trimmed'Length <= Length.MAX_NUMERO_TARJETA then
+         Result (Length.MAX_NUMERO_TARJETA - Trimmed'Length + 1 .. Length.MAX_NUMERO_TARJETA) := Trimmed;
+      else
+         -- Si excede, tomamos los últimos dígitos
+         Result := Trimmed (Trimmed'Last - Length.MAX_NUMERO_TARJETA + 1 .. Trimmed'Last);
+      end if;
+      return To_Bounded_String (Result);
+   end Generar_Numero_Tarjeta;
 
    -- Constructor
    function Crear_Tarjeta_Credito
       return Tarjeta_Credito_Type
    is
       use Ada.Calendar;
-      use Numero_Tarjeta_Str;
 
       Tarjeta      : Tarjeta_Credito_Type;
-      Numero       : String (1 .. Length.MAX_NUMERO_TARJETA);
       Ahora        : constant Ada.Calendar.Time := Clock;
       Vigencia     : constant Duration := 365.0 * Length.DEFAULT_VIGENCIA_TARJETA * 86_400.0;
    begin
-      -- Generar número de tarjeta aleatorio de 10 dígitos (identificador único)
-      Random_Digito.Reset (Gen);
-      for I in Numero'Range loop
-         Numero (I) := Character'Val (Character'Pos ('0') + Random_Digito.Random (Gen));
-      end loop;
-      Tarjeta.Numero_Tarjeta := To_Bounded_String (Numero);
+      -- Generar número de tarjeta secuencial con padding de ceros
+      Ultimo_Numero := Ultimo_Numero + 1;
+      Tarjeta.Numero_Tarjeta := Generar_Numero_Tarjeta;
 
       -- Asignar valores
       Tarjeta.Limite_Credito := Length.MAX_LIMITE_CREDITO;
