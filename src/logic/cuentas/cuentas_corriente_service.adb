@@ -1,13 +1,15 @@
-with Cuentas;
+with Cuentas; use Cuentas;
 with Cuenta_Corriente;
 
 package body Cuentas_Corriente_Service is
 
    procedure Aplicar_Interes (Cuenta : in out Cuenta_Corriente.Cuenta_Corriente_Type) is
-      Saldo_Actual   : constant Cuentas.Saldo_Type := Cuentas.Get_Saldo (Cuentas.Cuenta_Type (Cuenta));
-      Tasa_Anual     : constant Cuenta_Corriente.Interes_Sobregiro_Type := Cuenta_Corriente.Get_Interes_Sobregiro (Cuenta);
-      Factor_Mensual : constant Cuentas.Saldo_Type := Cuentas.Saldo_Type (Tasa_Anual) / 100.0 / 12.0;
-      Interes        : Cuentas.Saldo_Type;
+      Saldo_Actual   : constant Saldo_Type := Get_Saldo (Cuenta_Type (Cuenta));
+      Tasa_Anual     : constant Cuenta_Corriente.Interes_Sobregiro_Type :=
+        Cuenta_Corriente.Get_Interes_Sobregiro (Cuenta);
+      Factor_Mensual : constant Saldo_Type :=
+        Saldo_Type (Float (Tasa_Anual) / 100.0 / 12.0);
+      Interes        : Saldo_Type;
    begin
       if Saldo_Actual < 0.0 then
          Interes := Saldo_Actual * Factor_Mensual;
