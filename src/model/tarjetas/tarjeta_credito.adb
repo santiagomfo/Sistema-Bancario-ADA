@@ -27,7 +27,7 @@ package body Tarjeta_Credito is
       Tarjeta.Numero_Tarjeta := To_Bounded_String (Numero);
 
       -- Asignar valores
-      Tarjeta.Limite_Credito := Length.DEFAULT_LIMITE_CREDITO;
+      Tarjeta.Limite_Credito := Length.MAX_LIMITE_CREDITO;
       Tarjeta.Saldo_Utilizado := 0.0;
       Tarjeta.Fecha_Emision := Ahora;
       Tarjeta.Fecha_Vencimiento := Ahora + Vigencia;

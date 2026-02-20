@@ -10,13 +10,11 @@ package Length is
    MAX_DINERO      : constant := 10;
 
    MIN_SALDO         : constant := -2000.00;
-   --  MAX_TASA_INTERES  : constant := 100.00;
    MAX_LIMITE_SOBREGIRO : constant := 2000.00;
    MAX_LIMITE_CREDITO : constant := 8000.00;
    MAX_TRANSACCION : constant := 5000.00;
 
    -- Valores por defecto
-   DEFAULT_LIMITE_CREDITO : constant := 5000.00;
    DEFAULT_INTERES_SOBREGIRO : constant := 22.00;
    DEFAULT_TASA_INTERES_AHORROS : constant := 3.00;
    DEFAULT_TASA_INTERES_TARJETA : constant := 3.50;
