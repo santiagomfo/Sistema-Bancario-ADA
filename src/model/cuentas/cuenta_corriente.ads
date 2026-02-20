@@ -4,7 +4,10 @@ with Length;
 package Cuenta_Corriente is
    use type Cuentas.Saldo_Type;
 
-   type Interes_Sobregiro_Type is delta 0.01 range 0.0 .. Length.MAX_TASA_INTERES;
+   type Interes_Sobregiro_Type is new Float;
+   subtype Interes_Sobregiro_Fijo_Type is Interes_Sobregiro_Type
+      with Static_Predicate =>
+         Interes_Sobregiro_Fijo_Type = Interes_Sobregiro_Type (Length.DEFAULT_INTERES_SOBREGIRO);
    type Limite_Sobregiro_Type is delta 0.01 range 0.0 .. Length.MAX_LIMITE_SOBREGIRO;
 
    type Cuenta_Corriente_Type is new Cuentas.Cuenta_Type with private;
@@ -32,7 +35,7 @@ private
 
    type Cuenta_Corriente_Type is new Cuentas.Cuenta_Type with record
       Limite_Sobregiro  : Limite_Sobregiro_Type;
-      Interes_Sobregiro : Interes_Sobregiro_Type;
+      Interes_Sobregiro : Interes_Sobregiro_Fijo_Type;
    end record;
 
 end Cuenta_Corriente;

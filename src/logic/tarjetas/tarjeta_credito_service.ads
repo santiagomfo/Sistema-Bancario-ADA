@@ -10,7 +10,6 @@ package Tarjeta_Credito_Service is
    use Tarjeta_Resultado;
 
    function Crear_Tarjeta
-     (Tasa_Interes_Mensual  : Tasa_Interes_Type := Length.DEFAULT_TASA_INTERES_TARJETA)
       return Tarjeta_Credito_Access;
 
    function Obtener_Tarjeta (Numero_Tarjeta : String) return Tarjeta_Credito_Access

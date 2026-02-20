@@ -6,7 +6,10 @@ package Tarjeta_Credito is
 
    -- Tipos de datos
    type Saldo_Type is delta 0.01 digits 18;
-   type Tasa_Interes_Type is delta 0.01 range 0.0 .. Length.MAX_TASA_INTERES;
+   type Tasa_Interes_Type is new Float;
+   subtype Tasa_Interes_Fija_Type is Tasa_Interes_Type
+      with Static_Predicate =>
+         Tasa_Interes_Fija_Type = Tasa_Interes_Type (Length.DEFAULT_TASA_INTERES_TARJETA);
    type Limite_Credito_Type is delta 0.01 range 0.0 .. Length.MAX_LIMITE_CREDITO;
 
    package Numero_Tarjeta_Str is new Ada.Strings.Bounded.Generic_Bounded_Length
@@ -18,7 +21,6 @@ package Tarjeta_Credito is
 
    -- Constructor
    function Crear_Tarjeta_Credito
-     (Tasa_Interes_Mensual  : Tasa_Interes_Type := Length.DEFAULT_TASA_INTERES_TARJETA)
       return Tarjeta_Credito_Type;
 
    -- Getters
@@ -70,7 +72,7 @@ private
       Saldo_Utilizado       : Saldo_Type := 0.0;
       Fecha_Emision         : Ada.Calendar.Time;
       Fecha_Vencimiento     : Ada.Calendar.Time;
-      Tasa_Interes_Mensual  : Tasa_Interes_Type := 0.0;
+      Tasa_Interes_Mensual  : Tasa_Interes_Fija_Type;
    end record;
 
 end Tarjeta_Credito;

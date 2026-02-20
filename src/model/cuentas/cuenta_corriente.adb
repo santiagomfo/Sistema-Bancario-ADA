@@ -19,7 +19,7 @@ package body Cuenta_Corriente is
    begin
       return (Base with
          Limite_Sobregiro  => Length.DEFAULT_LIMITE_SOBREGIRO,
-         Interes_Sobregiro => Length.DEFAULT_INTERES_SOBREGIRO);
+         Interes_Sobregiro => Interes_Sobregiro_Fijo_Type (Length.DEFAULT_INTERES_SOBREGIRO));
    end Crear_Cuenta_Corriente;
 
    function Get_Limite_Sobregiro (C : Cuenta_Corriente_Type) return Limite_Sobregiro_Type is

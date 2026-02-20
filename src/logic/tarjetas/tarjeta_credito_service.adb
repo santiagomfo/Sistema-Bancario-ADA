@@ -12,11 +12,10 @@ package body Tarjeta_Credito_Service is
    -- === OPERACIONES CRUD ===
 
    function Crear_Tarjeta
-     (Tasa_Interes_Mensual  : Tasa_Interes_Type := Length.DEFAULT_TASA_INTERES_TARJETA)
       return Tarjeta_Credito_Access
    is
       Nueva_Tarjeta : constant Tarjeta_Credito_Access :=
-        new Tarjeta_Credito_Type'(Crear_Tarjeta_Credito (Tasa_Interes_Mensual));
+        new Tarjeta_Credito_Type'(Crear_Tarjeta_Credito);
    begin
       Tarjetas_Store.Append (Nueva_Tarjeta);
       return Nueva_Tarjeta;

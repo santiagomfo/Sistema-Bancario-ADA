@@ -9,7 +9,6 @@ package body Tarjeta_Credito is
 
    -- Constructor
    function Crear_Tarjeta_Credito
-     (Tasa_Interes_Mensual  : Tasa_Interes_Type := Length.DEFAULT_TASA_INTERES_TARJETA)
       return Tarjeta_Credito_Type
    is
       use Ada.Calendar;
@@ -32,7 +31,7 @@ package body Tarjeta_Credito is
       Tarjeta.Saldo_Utilizado := 0.0;
       Tarjeta.Fecha_Emision := Ahora;
       Tarjeta.Fecha_Vencimiento := Ahora + Vigencia;
-      Tarjeta.Tasa_Interes_Mensual := Tasa_Interes_Mensual;
+      Tarjeta.Tasa_Interes_Mensual := Tasa_Interes_Fija_Type (Length.DEFAULT_TASA_INTERES_TARJETA);
 
       return Tarjeta;
    end Crear_Tarjeta_Credito;

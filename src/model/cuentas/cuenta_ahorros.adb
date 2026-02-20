@@ -19,7 +19,7 @@ package body Cuenta_Ahorros is
       Base : constant Cuentas.Cuenta_Type :=
          Cuentas.Crear_Cuenta (Saldo, Estado);
    begin
-      return (Base with Tasa_Interes => Length.DEFAULT_TASA_INTERES_AHORROS);
+      return (Base with Tasa_Interes => Tasa_Interes_Fija_Type (Length.DEFAULT_TASA_INTERES_AHORROS));
    end Crear_Cuenta_Ahorros;
 
    function Get_Tasa_Interes (C : Cuenta_Ahorros_Type) return Tasa_Interes_Type is

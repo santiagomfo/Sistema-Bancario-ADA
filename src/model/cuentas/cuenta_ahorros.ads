@@ -4,7 +4,10 @@ with Length;
 package Cuenta_Ahorros is
    use type Cuentas.Saldo_Type;
 
-   type Tasa_Interes_Type is delta 0.01 range 0.0 .. Length.MAX_TASA_INTERES;
+   type Tasa_Interes_Type is new Float;
+   subtype Tasa_Interes_Fija_Type is Tasa_Interes_Type
+      with Static_Predicate =>
+         Tasa_Interes_Fija_Type = Tasa_Interes_Type (Length.DEFAULT_TASA_INTERES_AHORROS);
 
    type Cuenta_Ahorros_Type is new Cuentas.Cuenta_Type with private;
 
@@ -32,7 +35,7 @@ package Cuenta_Ahorros is
 private
 
    type Cuenta_Ahorros_Type is new Cuentas.Cuenta_Type with record
-      Tasa_Interes : Tasa_Interes_Type;
+      Tasa_Interes : Tasa_Interes_Fija_Type;
    end record;
 
 end Cuenta_Ahorros;
