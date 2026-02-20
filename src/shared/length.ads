@@ -18,9 +18,10 @@ package Length is
    -- Valores por defecto
    DEFAULT_LIMITE_CREDITO : constant := 5000.00;
    DEFAULT_LIMITE_SOBREGIRO : constant := 2000.00;
-   DEFAULT_INTERES_SOBREGIRO : constant := 2.00;
-   DEFAULT_TASA_INTERES_AHORROS : constant := 1.00;
+   DEFAULT_INTERES_SOBREGIRO : constant := 22.00;
+   DEFAULT_TASA_INTERES_AHORROS : constant := 3.00;
    DEFAULT_TASA_INTERES_TARJETA : constant := 3.50;
    MIN_PAGO_MENSUAL_PORCENTAJE : constant := 5.0;
+   DEFAULT_VIGENCIA_ANIOS : constant := 3.0;
 
 end Length;

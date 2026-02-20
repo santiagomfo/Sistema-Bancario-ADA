@@ -18,7 +18,7 @@ package body Tarjeta_Credito is
       Tarjeta      : Tarjeta_Credito_Type;
       Numero       : String (1 .. Length.MAX_NUMERO_TARJETA);
       Ahora        : constant Ada.Calendar.Time := Clock;
-      Tres_Anios   : constant Duration := 365.0 * 3.0 * 86_400.0; -- 3 años en segundos
+      Vigencia     : constant Duration := 365.0 * Length.DEFAULT_VIGENCIA_ANIOS * 86_400.0;
    begin
       -- Generar número de tarjeta aleatorio de 10 dígitos (identificador único)
       Random_Digito.Reset (Gen);
@@ -31,7 +31,7 @@ package body Tarjeta_Credito is
       Tarjeta.Limite_Credito := Length.DEFAULT_LIMITE_CREDITO;
       Tarjeta.Saldo_Utilizado := 0.0;
       Tarjeta.Fecha_Emision := Ahora;
-      Tarjeta.Fecha_Vencimiento := Ahora + Tres_Anios;
+      Tarjeta.Fecha_Vencimiento := Ahora + Vigencia;
       Tarjeta.Tasa_Interes_Mensual := Tasa_Interes_Mensual;
 
       return Tarjeta;
