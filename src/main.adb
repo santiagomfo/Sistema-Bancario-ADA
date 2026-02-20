@@ -621,7 +621,7 @@ begin
    if Resultado then
       Put_Line ("  Saldo con Sobregiro: " &
                 Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_2.all)));
-      Put_Line ("  Aplicando interes de sobregiro (2.00% mensual)...");
+      Put_Line ("  Aplicando interes de sobregiro (22.00% mensual)...");
 
       declare
          Cuenta_Corriente_Ptr : Cuenta_Corriente.Cuenta_Corriente_Type renames
