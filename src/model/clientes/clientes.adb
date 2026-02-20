@@ -73,4 +73,29 @@ package body Clientes is
       C.Numero_Tarjeta := Numero_Tarjeta_Str.To_Bounded_String (Numero_Tarjeta);
    end Set_Numero_Tarjeta;
 
+   procedure Set_Nombre (C : in out Cliente_Type; Nombre : String) is
+   begin
+      C.Nombre := Nombres_Str.To_Bounded_String (Nombre);
+   end Set_Nombre;
+
+   procedure Set_Apellido (C : in out Cliente_Type; Apellido : String) is
+   begin
+      C.Apellido := Nombres_Str.To_Bounded_String (Apellido);
+   end Set_Apellido;
+
+   procedure Set_Direccion (C : in out Cliente_Type; Direccion : String) is
+   begin
+      C.Direccion := Direccion_Str.To_Bounded_String (Direccion);
+   end Set_Direccion;
+
+   procedure Set_Correo (C : in out Cliente_Type; Correo : String) is
+   begin
+      C.Correo := Nombres_Str.To_Bounded_String (Correo);
+   end Set_Correo;
+
+   procedure Set_Telefono (C : in out Cliente_Type; Telefono : String) is
+   begin
+      C.Telefono := Telefono_Str.To_Bounded_String (Telefono);
+   end Set_Telefono;
+
 end Clientes;

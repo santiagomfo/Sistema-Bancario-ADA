@@ -51,6 +51,22 @@ package Clientes is
 
    procedure Set_Numero_Tarjeta (C : in out Cliente_Type; Numero_Tarjeta : String);
 
+   -- Operaciones UPDATE para campos mutables
+   procedure Set_Nombre (C : in out Cliente_Type; Nombre : String)
+   with Pre => Nombre'Length > 0 and Nombre'Length <= MAX_NOMBRE;
+
+   procedure Set_Apellido (C : in out Cliente_Type; Apellido : String)
+   with Pre => Apellido'Length > 0 and Apellido'Length <= MAX_APELLIDO;
+
+   procedure Set_Direccion (C : in out Cliente_Type; Direccion : String)
+   with Pre => Direccion'Length > 0 and Direccion'Length <= MAX_DIRECCION;
+
+   procedure Set_Correo (C : in out Cliente_Type; Correo : String)
+   with Pre => Correo'Length > 0 and Correo'Length <= MAX_CORREO;
+
+   procedure Set_Telefono (C : in out Cliente_Type; Telefono : String)
+   with Pre => Telefono'Length > 0 and Telefono'Length <= MAX_TELEFONO;
+
 private
 
    type Cliente_Type is record

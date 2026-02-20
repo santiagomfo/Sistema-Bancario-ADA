@@ -394,6 +394,111 @@ begin
    Put_Line (Tarjeta_Credito_Service.Consultar_Estado_Tarjeta
              (Tarjeta_Credito.Get_Numero_Tarjeta (Tarjeta_1.all)));
 
+   -------------------------------------------------------
+   -- 8. PRUEBAS DE OPERACIONES UPDATE EN CLIENTES
+   -------------------------------------------------------
+   Put_Line ("");
+   Put_Line ("========================================");
+   Put_Line ("=== PRUEBAS DE OPERACIONES UPDATE ===");
+   Put_Line ("========================================");
+
+   -- 8.1. Mostrar datos originales del Cliente 1
+   Put_Line ("");
+   Put_Line ("--- Datos Originales del Cliente 1 ---");
+   Put_Line ("  Cedula:    " & Clientes.Get_Cedula (Cliente_1));
+   Put_Line ("  Nombre:    " & Clientes.Get_Nombre (Cliente_1));
+   Put_Line ("  Apellido:  " & Clientes.Get_Apellido (Cliente_1));
+   Put_Line ("  Direccion: " & Clientes.Get_Direccion (Cliente_1));
+   Put_Line ("  Correo:    " & Clientes.Get_Correo (Cliente_1));
+   Put_Line ("  Telefono:  " & Clientes.Get_Telefono (Cliente_1));
+   Put_Line ("  Cuenta #:  " & Clientes.Get_Numero_Cuenta (Cliente_1));
+
+   -- 8.2. Actualizar Nombre del Cliente 1
+   Put_Line ("");
+   Put_Line ("--- Actualizando Nombre (Juan -> Juan Carlos) ---");
+   Clientes.Set_Nombre (Cliente_1, "Juan Carlos");
+   Put_Line ("  Nuevo Nombre: " & Clientes.Get_Nombre (Cliente_1));
+
+   -- 8.3. Actualizar Correo del Cliente 1
+   Put_Line ("");
+   Put_Line ("--- Actualizando Correo ---");
+   Clientes.Set_Correo (Cliente_1, "juancarlos.perez@empresa.com");
+   Put_Line ("  Nuevo Correo: " & Clientes.Get_Correo (Cliente_1));
+
+   -- 8.4. Actualizar Telefono del Cliente 1
+   Put_Line ("");
+   Put_Line ("--- Actualizando Telefono ---");
+   Clientes.Set_Telefono (Cliente_1, "0991234567");
+   Put_Line ("  Nuevo Telefono: " & Clientes.Get_Telefono (Cliente_1));
+
+   -- 8.5. Actualizar datos del Cliente 2
+   Put_Line ("");
+   Put_Line ("--- Datos Originales del Cliente 2 ---");
+   Put_Line ("  Nombre:    " & Clientes.Get_Nombre (Cliente_2));
+   Put_Line ("  Apellido:  " & Clientes.Get_Apellido (Cliente_2));
+   Put_Line ("  Direccion: " & Clientes.Get_Direccion (Cliente_2));
+
+   Put_Line ("");
+   Put_Line ("--- Actualizando Cliente 2 ---");
+   Clientes.Set_Apellido (Cliente_2, "Lopez Martinez");
+   Clientes.Set_Direccion (Cliente_2, "Avenida Principal 456, Piso 3");
+   Put_Line ("  Nuevo Apellido:  " & Clientes.Get_Apellido (Cliente_2));
+   Put_Line ("  Nueva Direccion: " & Clientes.Get_Direccion (Cliente_2));
+
+   -- 8.6. Actualizar datos del Cliente 3
+   Put_Line ("");
+   Put_Line ("--- Actualizando Cliente 3 (con tarjeta) ---");
+   Put_Line ("  Nombre Original: " & Clientes.Get_Nombre (Cliente_3));
+   Clientes.Set_Nombre (Cliente_3, "Carlos Alberto");
+   Put_Line ("  Nombre Actualizado: " & Clientes.Get_Nombre (Cliente_3));
+
+   -- 8.7. Verificar que campos inmutables NO cambiaron
+   Put_Line ("");
+   Put_Line ("--- Verificando Campos INMUTABLES ---");
+   Put_Line ("(Cedula, Numero Cuenta y Numero Tarjeta NO deben cambiar)");
+   Put_Line ("");
+   Put_Line ("Cliente 1:");
+   Put_Line ("  Cedula: " & Clientes.Get_Cedula (Cliente_1) &
+             " (original: 0102030405)");
+   Put_Line ("  Cuenta: " & Clientes.Get_Numero_Cuenta (Cliente_1) &
+             " (debe mantenerse)");
+   Put_Line ("");
+   Put_Line ("Cliente 3:");
+   Put_Line ("  Cedula: " & Clientes.Get_Cedula (Cliente_3) &
+             " (original: 0304050607)");
+   Put_Line ("  Tarjeta: " & Clientes.Get_Numero_Tarjeta (Cliente_3) &
+             " (debe mantenerse)");
+
+   -- 8.8. Resumen final de todos los clientes actualizados
+   Put_Line ("");
+   Put_Line ("========================================");
+   Put_Line ("=== ESTADO FINAL DE TODOS LOS CLIENTES ===");
+   Put_Line ("========================================");
+   Put_Line ("");
+   Put_Line ("CLIENTE 1:");
+   Put_Line ("  Nombre Completo: " & Clientes.Get_Nombre (Cliente_1) &
+             " " & Clientes.Get_Apellido (Cliente_1));
+   Put_Line ("  Correo:  " & Clientes.Get_Correo (Cliente_1));
+   Put_Line ("  Telefono: " & Clientes.Get_Telefono (Cliente_1));
+   Put_Line ("  Saldo Cuenta: " &
+             Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_1.all)));
+   Put_Line ("");
+   Put_Line ("CLIENTE 2:");
+   Put_Line ("  Nombre Completo: " & Clientes.Get_Nombre (Cliente_2) &
+             " " & Clientes.Get_Apellido (Cliente_2));
+   Put_Line ("  Direccion: " & Clientes.Get_Direccion (Cliente_2));
+   Put_Line ("  Saldo Cuenta: " &
+             Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_2.all)));
+   Put_Line ("");
+   Put_Line ("CLIENTE 3:");
+   Put_Line ("  Nombre Completo: " & Clientes.Get_Nombre (Cliente_3) &
+             " " & Clientes.Get_Apellido (Cliente_3));
+   Put_Line ("  Saldo Cuenta: " &
+             Cuentas.Saldo_Type'Image (Cuentas.Get_Saldo (Cuenta_3.all)));
+   Put_Line ("  Credito Disponible Tarjeta: " &
+             Tarjeta_Credito.Saldo_Type'Image
+               (Tarjeta_Credito.Get_Credito_Disponible (Tarjeta_1.all)));
+
    Put_Line ("");
    Put_Line ("--- Fin de operaciones ---");
 end Main;
