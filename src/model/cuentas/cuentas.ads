@@ -1,9 +1,14 @@
 with Ada.Calendar;
+with Ada.Strings.Bounded;
 with Length;
 
 package Cuentas is
 
-   NUMERO_CUENTA_LEN : constant := Length.MAX_NUMERO_CUENTA;
+   -- Paquete Bounded para Numero_Cuenta
+   package Numero_Cuenta_Str is new Ada.Strings.Bounded.Generic_Bounded_Length
+     (Max => Length.MAX_NUMERO_CUENTA);
+
+   subtype Numero_Cuenta_Type is Numero_Cuenta_Str.Bounded_String;
 
    type Saldo_Type is delta 0.01 digits 18;
    type Estado_Type is (Activa, Bloqueada);
@@ -36,7 +41,7 @@ package Cuentas is
 private
 
    type Cuenta_Type is tagged record
-      Numero_Cuenta  : String (1 .. NUMERO_CUENTA_LEN);
+      Numero_Cuenta  : Numero_Cuenta_Str.Bounded_String;
       Saldo          : Saldo_Type;
       Fecha_Apertura : Ada.Calendar.Time;
       Estado         : Estado_Type;

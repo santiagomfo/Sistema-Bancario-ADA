@@ -2,22 +2,23 @@ with Ada.Strings.Fixed;
 with Ada.Strings;
 
 package body Cuentas is
+   use Numero_Cuenta_Str;
 
    Ultimo_Numero : Natural := 0;
 
-   function Generar_Numero_Cuenta return String is
+   function Generar_Numero_Cuenta return Numero_Cuenta_Str.Bounded_String is
       Num_Str : String := Natural'Image (Ultimo_Numero);
       -- 'Image retorna con un espacio al inicio para números positivos
       Trimmed : constant String := Ada.Strings.Fixed.Trim (Num_Str, Ada.Strings.Left);
-      Result  : String (1 .. NUMERO_CUENTA_LEN) := (others => '0');
+      Result  : String (1 .. Length.MAX_NUMERO_CUENTA) := (others => '0');
    begin
-      if Trimmed'Length <= NUMERO_CUENTA_LEN then
-         Result (NUMERO_CUENTA_LEN - Trimmed'Length + 1 .. NUMERO_CUENTA_LEN) := Trimmed;
+      if Trimmed'Length <= Length.MAX_NUMERO_CUENTA then
+         Result (Length.MAX_NUMERO_CUENTA - Trimmed'Length + 1 .. Length.MAX_NUMERO_CUENTA) := Trimmed;
       else
          -- Si excede, tomamos los ultimos digitos (o podria lanzarse excepcion)
-         Result := Trimmed (Trimmed'Last - NUMERO_CUENTA_LEN + 1 .. Trimmed'Last);
+         Result := Trimmed (Trimmed'Last - Length.MAX_NUMERO_CUENTA + 1 .. Trimmed'Last);
       end if;
-      return Result;
+      return To_Bounded_String (Result);
    end Generar_Numero_Cuenta;
 
    function Crear_Cuenta
@@ -37,7 +38,7 @@ package body Cuentas is
 
    function Get_Numero_Cuenta (C : Cuenta_Type) return String is
    begin
-      return C.Numero_Cuenta;
+      return To_String (C.Numero_Cuenta);
    end Get_Numero_Cuenta;
 
    function Get_Saldo (C : Cuenta_Type) return Saldo_Type is
