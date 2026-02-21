@@ -27,7 +27,7 @@ package body Clientes_Service is
       Tipo_Cuenta   : Tipo_Cuenta_Enum;
       Saldo_Inicial : Cuentas.Saldo_Type)
    is
-      Numero_Cuenta_Generada : Cli.Numero_Cuenta_Type;
+      Numero_Cuenta_Generada : String (1 .. Length.MAX_NUMERO_CUENTA);
    begin
       if not Esta_En_Rango (Cedula, Cli.MAX_CEDULA) then
          Status := Crear_Error (Cedula_Invalida, "Cedula fuera de rango");
@@ -105,7 +105,7 @@ package body Clientes_Service is
       Telefono  : String)
    is
       Cedula_Actual        : constant String := Cli.Get_Cedula (Cliente);
-      Numero_Cuenta_Actual : constant Cli.Numero_Cuenta_Type := Cli.Get_Numero_Cuenta (Cliente);
+      Numero_Cuenta_Actual : constant String := Cli.Get_Numero_Cuenta (Cliente);
    begin
       if not Esta_En_Rango (Nombre, Cli.MAX_NOMBRE) then
          Status := Crear_Error (Nombre_Invalido, "Nombre fuera de rango");

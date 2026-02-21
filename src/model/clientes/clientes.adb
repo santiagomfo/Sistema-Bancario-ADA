@@ -7,25 +7,25 @@ package body Clientes is
       Direccion     : String;
       Correo        : String;
       Telefono      : String;
-      Numero_Cuenta : Numero_Cuenta_Type)
+      Numero_Cuenta : String)
       return Cliente_Type
    is
    begin
       return Cliente_Type'(
-         Cedula        => Cedula,
-         Nombre        => Nombres_Str.To_Bounded_String (Nombre),
-         Apellido      => Nombres_Str.To_Bounded_String (Apellido),
-         Direccion     => Direccion_Str.To_Bounded_String (Direccion),
-         Correo        => Nombres_Str.To_Bounded_String (Correo),
-         Telefono      => Telefono_Str.To_Bounded_String (Telefono),
-         Numero_Cuenta => Numero_Cuenta,
+         Cedula         => Cedula_Str.To_Bounded_String (Cedula),
+         Nombre         => Nombres_Str.To_Bounded_String (Nombre),
+         Apellido       => Nombres_Str.To_Bounded_String (Apellido),
+         Direccion      => Direccion_Str.To_Bounded_String (Direccion),
+         Correo         => Nombres_Str.To_Bounded_String (Correo),
+         Telefono       => Telefono_Str.To_Bounded_String (Telefono),
+         Numero_Cuenta  => Numero_Cuenta_Str.To_Bounded_String (Numero_Cuenta),
          Numero_Tarjeta => Numero_Tarjeta_Str.Null_Bounded_String
       );
    end Crear_Cliente;
 
    function Get_Cedula (C : Cliente_Type) return String is
    begin
-      return C.Cedula;
+      return Cedula_Str.To_String (C.Cedula);
    end Get_Cedula;
 
    function Get_Nombre (C : Cliente_Type) return String is
@@ -53,9 +53,9 @@ package body Clientes is
       return Telefono_Str.To_String (C.Telefono);
    end Get_Telefono;
 
-   function Get_Numero_Cuenta (C : Cliente_Type) return Numero_Cuenta_Type is
+   function Get_Numero_Cuenta (C : Cliente_Type) return String is
    begin
-      return C.Numero_Cuenta;
+      return Numero_Cuenta_Str.To_String (C.Numero_Cuenta);
    end Get_Numero_Cuenta;
 
    function Get_Numero_Tarjeta (C : Cliente_Type) return String is

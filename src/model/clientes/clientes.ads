@@ -11,13 +11,15 @@ package Clientes is
    MAX_DIRECCION : constant := Length.MAX_TEXTO_LARGO;
    MAX_TELEFONO  : constant := Length.MAX_TELEFONO;
 
-   subtype Numero_Cuenta_Type is String (1 .. Length.MAX_NUMERO_CUENTA);
-
-
+   -- Paquetes Bounded_String
+   package Cedula_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => MAX_CEDULA);
    package Nombres_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => MAX_NOMBRE);
    package Direccion_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => MAX_DIRECCION);
    package Telefono_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => MAX_TELEFONO);
+   package Numero_Cuenta_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => Length.MAX_NUMERO_CUENTA);
    package Numero_Tarjeta_Str is new Ada.Strings.Bounded.Generic_Bounded_Length (Max => Length.MAX_NUMERO_TARJETA);
+
+   subtype Numero_Cuenta_Type is Numero_Cuenta_Str.Bounded_String;
 
    type Cliente_Type is private;
 
@@ -28,16 +30,17 @@ package Clientes is
       Direccion     : String;
       Correo        : String;
       Telefono      : String;
-      Numero_Cuenta : Numero_Cuenta_Type)
+      Numero_Cuenta : String)
       return Cliente_Type
    with
       Pre =>
-         Cedula'Length = MAX_CEDULA and
-         Nombre'Length <= MAX_NOMBRE and
-         Apellido'Length <= MAX_APELLIDO and
-         Direccion'Length <= MAX_DIRECCION and
-         Correo'Length <= MAX_CORREO and
-         Telefono'Length <= MAX_TELEFONO;
+         Cedula'Length > 0 and Cedula'Length <= MAX_CEDULA and
+         Nombre'Length > 0 and Nombre'Length <= MAX_NOMBRE and
+         Apellido'Length > 0 and Apellido'Length <= MAX_APELLIDO and
+         Direccion'Length > 0 and Direccion'Length <= MAX_DIRECCION and
+         Correo'Length > 0 and Correo'Length <= MAX_CORREO and
+         Telefono'Length > 0 and Telefono'Length <= MAX_TELEFONO and
+         Numero_Cuenta'Length > 0 and Numero_Cuenta'Length <= Length.MAX_NUMERO_CUENTA;
 
    function Get_Cedula (C : Cliente_Type) return String;
    function Get_Nombre (C : Cliente_Type) return String;
@@ -45,7 +48,7 @@ package Clientes is
    function Get_Direccion (C : Cliente_Type) return String;
    function Get_Correo (C : Cliente_Type) return String;
    function Get_Telefono (C : Cliente_Type) return String;
-   function Get_Numero_Cuenta (C : Cliente_Type) return Numero_Cuenta_Type;
+   function Get_Numero_Cuenta (C : Cliente_Type) return String;
    function Get_Numero_Tarjeta (C : Cliente_Type) return String;
    function Tiene_Tarjeta (C : Cliente_Type) return Boolean;
 
@@ -70,13 +73,13 @@ package Clientes is
 private
 
    type Cliente_Type is record
-      Cedula        : String (1 .. MAX_CEDULA);
-      Nombre        : Nombres_Str.Bounded_String;
-      Apellido      : Nombres_Str.Bounded_String;
-      Direccion     : Direccion_Str.Bounded_String;
-      Correo        : Nombres_Str.Bounded_String;
-      Telefono      : Telefono_Str.Bounded_String;
-      Numero_Cuenta : Numero_Cuenta_Type;
+      Cedula         : Cedula_Str.Bounded_String;
+      Nombre         : Nombres_Str.Bounded_String;
+      Apellido       : Nombres_Str.Bounded_String;
+      Direccion      : Direccion_Str.Bounded_String;
+      Correo         : Nombres_Str.Bounded_String;
+      Telefono       : Telefono_Str.Bounded_String;
+      Numero_Cuenta  : Numero_Cuenta_Str.Bounded_String;
       Numero_Tarjeta : Numero_Tarjeta_Str.Bounded_String;  -- Vacío = sin tarjeta
    end record;
 
