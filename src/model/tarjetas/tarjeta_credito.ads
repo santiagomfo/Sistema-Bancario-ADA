@@ -41,7 +41,6 @@ package Tarjeta_Credito is
    with
       Post => Esta_Al_Limite'Result = (Get_Saldo_Utilizado (T) >= Saldo_Type (Get_Limite_Credito (T)));
 
-   function Get_Pago_Minimo (T : Tarjeta_Credito_Type) return Saldo_Type;
 
    function Esta_Vencida (T : Tarjeta_Credito_Type) return Boolean;
 

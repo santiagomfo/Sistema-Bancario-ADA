@@ -86,10 +86,6 @@ package body Tarjeta_Credito is
       return T.Saldo_Utilizado >= Saldo_Type (T.Limite_Credito);
    end Esta_Al_Limite;
 
-   function Get_Pago_Minimo (T : Tarjeta_Credito_Type) return Saldo_Type is
-   begin
-      return Saldo_Type (Float (T.Saldo_Utilizado) * Float (Length.MIN_PAGO_MENSUAL_PORCENTAJE) / 100.0);
-   end Get_Pago_Minimo;
 
    function Esta_Vencida (T : Tarjeta_Credito_Type) return Boolean is
       use Ada.Calendar;

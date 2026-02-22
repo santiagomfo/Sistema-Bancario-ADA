@@ -413,9 +413,6 @@ begin
    Put_Line ("  Saldo Utilizado: " &
              Tarjeta_Credito.Saldo_Type'Image
                (Tarjeta_Credito.Get_Saldo_Utilizado (Tarjeta_1.all)));
-   Put_Line ("  Pago Minimo:     " &
-             Tarjeta_Credito.Saldo_Type'Image
-               (Tarjeta_Credito.Get_Pago_Minimo (Tarjeta_1.all)));
 
    -- 4.7. Consultar Estado Final
    Imprimir_Subseccion ("Estado Final de Tarjeta");
