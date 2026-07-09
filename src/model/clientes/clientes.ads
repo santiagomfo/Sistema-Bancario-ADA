@@ -1,7 +1,9 @@
 with Ada.Strings.Bounded;
 with Length; -- Importamos la configuración centralizada
 
-package Clientes is
+--  FRONTERA SPARK: entidad Cliente basada en Ada.Strings.Bounded y colecciones;
+--  fuera del nucleo verificado por diseno.
+package Clientes with SPARK_Mode => Off is
    pragma Preelaborate;
 
    MAX_CEDULA    : constant := Length.MAX_ID;

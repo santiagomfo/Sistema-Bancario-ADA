@@ -2,7 +2,9 @@
 -- Reemplaza el uso de Program_Error para validaciones de negocio
 with Resultado_Operacion;
 
-package Cuenta_Resultado is
+--  FRONTERA SPARK: tipo de resultado de operaciones de cuenta (capa de soporte
+--  a servicios). Fuera del nucleo verificado.
+package Cuenta_Resultado with SPARK_Mode => Off is
 
    use Resultado_Operacion;
 

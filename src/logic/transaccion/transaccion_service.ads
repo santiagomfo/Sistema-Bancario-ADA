@@ -3,7 +3,9 @@ with Transaccion; use Transaccion;
 with Movimientos; use Movimientos;
 with Length;
 
-package Transaccion_Service is
+--  FRONTERA SPARK: capa de servicios con access/despacho dinamico y patrones
+--  State/Strategy. Fuera del subconjunto SPARK por diseno (no se analiza).
+package Transaccion_Service with SPARK_Mode => Off is
 
    function Ejecutar_Transaccion
      (Estrategia    : I_Transaccion_Strategy'Class;

@@ -1,4 +1,6 @@
-package body Transaccion is
+--  Body fuera de SPARK: la ejecucion de estrategias despacha sobre
+--  Cuenta_Type'Class (Strategy pattern). Aislado del analisis SPARK.
+package body Transaccion with SPARK_Mode => Off is
 
    function Get_Tipo (Self : Deposito_Strategy) return Estrategia_Transaccion is
    begin

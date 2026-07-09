@@ -9,6 +9,3 @@ website = ""
 tags = []
 
 executables = ["main"]
-
-[[depends-on]]
-gnatprove = "^16.1.0"

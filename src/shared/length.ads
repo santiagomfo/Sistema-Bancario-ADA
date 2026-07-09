@@ -1,4 +1,4 @@
-package Length is
+package Length with SPARK_Mode => On is
    pragma Pure;
 
    MAX_ID : constant := 10;

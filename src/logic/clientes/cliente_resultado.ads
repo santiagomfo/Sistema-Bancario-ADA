@@ -2,7 +2,8 @@
 -- Reemplaza la excepción Datos_Invalidos
 with Resultado_Operacion;
 
-package Cliente_Resultado is
+--  FRONTERA SPARK: capa de resultados de servicios. Fuera de SPARK.
+package Cliente_Resultado with SPARK_Mode => Off is
 
    use Resultado_Operacion;
 

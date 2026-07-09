@@ -1,6 +1,8 @@
 with Transaccion; use Transaccion;
 
-package Cuenta_Estado is
+--  FRONTERA SPARK: patron State con despacho dinamico sobre Transaccion.
+--  Fuera del subconjunto SPARK por diseno.
+package Cuenta_Estado with SPARK_Mode => Off is
 
    -- Modelo puro: solo define los estados y sus comportamientos básicos
    -- La lógica de negocio debe estar en Services

@@ -2,7 +2,8 @@
 -- Reemplaza el uso de Boolean para indicar éxito/fallo
 with Resultado_Operacion;
 
-package Transaccion_Resultado is
+--  FRONTERA SPARK: capa de resultados de servicios. Fuera de SPARK.
+package Transaccion_Resultado with SPARK_Mode => Off is
 
    use Resultado_Operacion;
 

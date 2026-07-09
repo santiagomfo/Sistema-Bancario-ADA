@@ -17,7 +17,9 @@ with Tarjeta_Credito_Service;
 with Tarjeta_Resultado;
 with Resultado_Operacion; use Resultado_Operacion;
 
-procedure Main is
+--  FRONTERA SPARK: punto de entrada con I/O (Ada.Text_IO), punteros y despacho
+--  dinamico. Fuera del subconjunto SPARK por diseno.
+procedure Main with SPARK_Mode => Off is
    Cliente_1, Cliente_2, Cliente_3 : Clientes.Cliente_Type;
    Cuenta_1, Cuenta_2, Cuenta_3 : Cuentas.Cuenta_Access;
    Tarjeta_1 : Tarjeta_Credito.Tarjeta_Credito_Access;

@@ -1,12 +1,13 @@
 with Ada.Strings.Fixed;
 with Ada.Strings;
 
-package body Cuentas is
+package body Cuentas with SPARK_Mode => On is
    use Numero_Cuenta_Str;
 
    Ultimo_Numero : Natural := 0;
 
-   function Generar_Numero_Cuenta return Numero_Cuenta_Str.Bounded_String is
+   function Generar_Numero_Cuenta return Numero_Cuenta_Str.Bounded_String
+   with SPARK_Mode => Off is
       Num_Str : String := Natural'Image (Ultimo_Numero);
       -- 'Image retorna con un espacio al inicio para números positivos
       Trimmed : constant String := Ada.Strings.Fixed.Trim (Num_Str, Ada.Strings.Left);
@@ -25,6 +26,7 @@ package body Cuentas is
      (Saldo         : Saldo_Type;
       Estado        : Estado_Type)
       return Cuenta_Type
+   with SPARK_Mode => Off
    is
    begin
       Ultimo_Numero := Ultimo_Numero + 1;
@@ -36,25 +38,21 @@ package body Cuentas is
       );
    end Crear_Cuenta;
 
-   function Get_Numero_Cuenta (C : Cuenta_Type) return String is
+   function Get_Numero_Cuenta (C : Cuenta_Type) return String
+   with SPARK_Mode => Off is
    begin
       return To_String (C.Numero_Cuenta);
    end Get_Numero_Cuenta;
 
-   function Get_Saldo (C : Cuenta_Type) return Saldo_Type is
-   begin
-      return C.Saldo;
-   end Get_Saldo;
+   --  Get_Saldo completado como expression function en la parte privada del spec.
 
-   function Get_Fecha_Apertura (C : Cuenta_Type) return Ada.Calendar.Time is
+   function Get_Fecha_Apertura (C : Cuenta_Type) return Ada.Calendar.Time
+   with SPARK_Mode => Off is
    begin
       return C.Fecha_Apertura;
    end Get_Fecha_Apertura;
 
-   function Get_Estado (C : Cuenta_Type) return Estado_Type is
-   begin
-      return C.Estado;
-   end Get_Estado;
+   --  Get_Estado completado como expression function en la parte privada del spec.
 
    procedure Set_Saldo (C : in out Cuenta_Type; Saldo : Saldo_Type) is
    begin

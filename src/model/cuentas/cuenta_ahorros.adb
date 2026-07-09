@@ -1,10 +1,11 @@
-package body Cuenta_Ahorros is
+package body Cuenta_Ahorros with SPARK_Mode => On is
    use type Cuentas.Saldo_Type;
 
    overriding function Crear_Cuenta
      (Saldo         : Cuentas.Saldo_Type;
       Estado        : Cuentas.Estado_Type)
       return Cuenta_Ahorros_Type
+   with SPARK_Mode => Off
    is
    begin
       -- La validación se realiza mediante la precondición y el subtipo Saldo_Ahorros_Type
@@ -15,6 +16,7 @@ package body Cuenta_Ahorros is
      (Saldo         : Saldo_Ahorros_Type;
       Estado        : Cuentas.Estado_Type)
       return Cuenta_Ahorros_Type
+   with SPARK_Mode => Off
    is
       Base : constant Cuentas.Cuenta_Type :=
          Cuentas.Crear_Cuenta (Saldo, Estado);
@@ -22,10 +24,7 @@ package body Cuenta_Ahorros is
       return (Base with Tasa_Interes => Tasa_Interes_Fija_Type (Length.DEFAULT_TASA_INTERES_AHORROS));
    end Crear_Cuenta_Ahorros;
 
-   function Get_Tasa_Interes (C : Cuenta_Ahorros_Type) return Tasa_Interes_Type is
-   begin
-      return C.Tasa_Interes;
-   end Get_Tasa_Interes;
+   --  Get_Tasa_Interes completado como expression function en la parte privada del spec.
 
    overriding procedure Set_Saldo (C : in out Cuenta_Ahorros_Type; Saldo : Cuentas.Saldo_Type) is
    begin

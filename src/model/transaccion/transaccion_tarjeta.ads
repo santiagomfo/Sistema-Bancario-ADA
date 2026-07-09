@@ -2,7 +2,9 @@ with Tarjeta_Credito;
 with Length;
 with Tarjeta_Resultado;
 
-package Transaccion_Tarjeta is
+--  FRONTERA SPARK: estrategias de transaccion de tarjeta con despacho dinamico.
+--  Fuera del subconjunto SPARK por diseno.
+package Transaccion_Tarjeta with SPARK_Mode => Off is
 
    use Tarjeta_Credito;
    use Tarjeta_Resultado;

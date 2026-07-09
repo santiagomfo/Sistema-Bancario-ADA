@@ -7,7 +7,9 @@ package body Resultado_Operacion is
       Longitud : constant Natural := Natural'Min (Texto'Length, Mensaje_Error'Length);
    begin
       if Longitud > 0 then
-         Resultado (1 .. Longitud) := Texto (Texto'First .. Texto'First + Longitud - 1);
+         --  Parentesis en (Longitud - 1) para evitar overflow del indice
+         --  intermedio Texto'First + Longitud cuando Texto'First es grande.
+         Resultado (1 .. Longitud) := Texto (Texto'First .. Texto'First + (Longitud - 1));
       end if;
       return Resultado;
    end Crear_Mensaje;

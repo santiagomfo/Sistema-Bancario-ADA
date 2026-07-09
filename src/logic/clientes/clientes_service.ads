@@ -4,7 +4,8 @@ with Cuentas;
 with Tarjeta_Credito;
 with Cliente_Resultado;
 
-package Clientes_Service is
+--  FRONTERA SPARK: capa de servicios con access/despacho dinamico. Fuera de SPARK.
+package Clientes_Service with SPARK_Mode => Off is
 
    use Tarjeta_Credito;
    use Cliente_Resultado;

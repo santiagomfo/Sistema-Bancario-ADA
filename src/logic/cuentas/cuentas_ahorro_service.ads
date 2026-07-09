@@ -1,7 +1,8 @@
 with Cuenta_Ahorros;
 with Cuentas;
 
-package Cuentas_Ahorro_Service is
+--  FRONTERA SPARK: capa de servicios con access/despacho dinamico. Fuera de SPARK.
+package Cuentas_Ahorro_Service with SPARK_Mode => Off is
 
    procedure Aplicar_Interes (Cuenta : in out Cuenta_Ahorros.Cuenta_Ahorros_Type);
 

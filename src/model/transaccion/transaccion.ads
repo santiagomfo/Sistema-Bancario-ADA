@@ -1,7 +1,11 @@
 with Cuentas; use Cuentas;
 with Length;
 
-package Transaccion is
+--  Spec en SPARK: la interfaz Strategy, el enum Estrategia_Transaccion y los
+--  contratos classwide son SPARK-legales. Esto expone Estrategia_Transaccion al
+--  paquete verificado Movimientos. La logica de despacho vive en el body (Off).
+package Transaccion with SPARK_Mode => On is
+   pragma Elaborate_Body;  --  Requerido por SPARK (early call region, E0003)
 
    type I_Transaccion_Strategy is interface;
 

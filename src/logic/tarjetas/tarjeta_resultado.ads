@@ -2,7 +2,8 @@
 -- Reemplaza las excepciones: Limite_Credito_Excedido, Pago_Invalido, etc.
 with Resultado_Operacion;
 
-package Tarjeta_Resultado is
+--  FRONTERA SPARK: capa de resultados de servicios. Fuera de SPARK.
+package Tarjeta_Resultado with SPARK_Mode => Off is
 
    use Resultado_Operacion;
 

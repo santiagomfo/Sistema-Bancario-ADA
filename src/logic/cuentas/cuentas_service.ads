@@ -2,7 +2,8 @@ with Cuentas;
 with Transaccion;
 with Cuenta_Estado;
 
-package Cuentas_Service is
+--  FRONTERA SPARK: capa de servicios con access/despacho dinamico. Fuera de SPARK.
+package Cuentas_Service with SPARK_Mode => Off is
    -- Operaciones de negocio sobre el estado
    procedure Bloquear_Cuenta (C : in out Cuentas.Cuenta_Type'Class);
 

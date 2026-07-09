@@ -1,12 +1,13 @@
 with Ada.Strings.Fixed;
 with Ada.Strings;
 
-package body Tarjeta_Credito is
+package body Tarjeta_Credito with SPARK_Mode => On is
    use Numero_Tarjeta_Str;
 
    Ultimo_Numero : Natural := 0;
 
-   function Generar_Numero_Tarjeta return Numero_Tarjeta_Str.Bounded_String is
+   function Generar_Numero_Tarjeta return Numero_Tarjeta_Str.Bounded_String
+   with SPARK_Mode => Off is
       Num_Str : String := Natural'Image (Ultimo_Numero);
       Trimmed : constant String := Ada.Strings.Fixed.Trim (Num_Str, Ada.Strings.Left);
       Result  : String (1 .. Length.MAX_NUMERO_TARJETA) := (others => '0');
@@ -23,6 +24,7 @@ package body Tarjeta_Credito is
    -- Constructor
    function Crear_Tarjeta_Credito
       return Tarjeta_Credito_Type
+   with SPARK_Mode => Off
    is
       use Ada.Calendar;
 
@@ -45,35 +47,28 @@ package body Tarjeta_Credito is
    end Crear_Tarjeta_Credito;
 
    -- Getters
-   function Get_Numero_Tarjeta (T : Tarjeta_Credito_Type) return String is
+   function Get_Numero_Tarjeta (T : Tarjeta_Credito_Type) return String
+   with SPARK_Mode => Off is
    begin
       return Numero_Tarjeta_Str.To_String (T.Numero_Tarjeta);
    end Get_Numero_Tarjeta;
 
-   function Get_Limite_Credito (T : Tarjeta_Credito_Type) return Limite_Credito_Type is
-   begin
-      return T.Limite_Credito;
-   end Get_Limite_Credito;
+   --  Get_Limite_Credito y Get_Saldo_Utilizado completados como expression
+   --  functions en la parte privada del spec.
 
-   function Get_Saldo_Utilizado (T : Tarjeta_Credito_Type) return Saldo_Type is
-   begin
-      return T.Saldo_Utilizado;
-   end Get_Saldo_Utilizado;
-
-   function Get_Fecha_Emision (T : Tarjeta_Credito_Type) return Ada.Calendar.Time is
+   function Get_Fecha_Emision (T : Tarjeta_Credito_Type) return Ada.Calendar.Time
+   with SPARK_Mode => Off is
    begin
       return T.Fecha_Emision;
    end Get_Fecha_Emision;
 
-   function Get_Fecha_Vencimiento (T : Tarjeta_Credito_Type) return Ada.Calendar.Time is
+   function Get_Fecha_Vencimiento (T : Tarjeta_Credito_Type) return Ada.Calendar.Time
+   with SPARK_Mode => Off is
    begin
       return T.Fecha_Vencimiento;
    end Get_Fecha_Vencimiento;
 
-   function Get_Tasa_Interes_Anual (T : Tarjeta_Credito_Type) return Tasa_Interes_Type is
-   begin
-      return T.Tasa_Interes_Anual;
-   end Get_Tasa_Interes_Anual;
+   --  Get_Tasa_Interes_Anual completado como expression function en el spec.
 
    -- Operaciones de consulta
    function Get_Credito_Disponible (T : Tarjeta_Credito_Type) return Saldo_Type is
@@ -87,7 +82,8 @@ package body Tarjeta_Credito is
    end Esta_Al_Limite;
 
 
-   function Esta_Vencida (T : Tarjeta_Credito_Type) return Boolean is
+   function Esta_Vencida (T : Tarjeta_Credito_Type) return Boolean
+   with SPARK_Mode => Off is
       use Ada.Calendar;
    begin
       return Clock > T.Fecha_Vencimiento;
@@ -105,8 +101,11 @@ package body Tarjeta_Credito is
    end Reducir_Deuda;
 
    procedure Aplicar_Interes (T : in out Tarjeta_Credito_Type) is
-      Interes : constant Saldo_Type :=
-        Saldo_Type (Float (T.Saldo_Utilizado) * Float (T.Tasa_Interes_Anual) / (100.0 * 12.0));
+      --  Interes mensual = deuda * 22% anual / 12 meses = deuda * 22 / 1200.
+      --  Aritmetica fixed-point pura (fixed * integer / integer): SPARK la
+      --  soporta y prueba la cota. La tasa 22 esta fijada por el predicado
+      --  estatico de Tasa_Interes_Fija_Type.
+      Interes : constant Saldo_Type := T.Saldo_Utilizado * 22 / 1200;
    begin
       T.Saldo_Utilizado := T.Saldo_Utilizado + Interes;
    end Aplicar_Interes;

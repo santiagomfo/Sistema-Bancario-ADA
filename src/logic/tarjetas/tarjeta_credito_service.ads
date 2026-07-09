@@ -3,7 +3,8 @@ with Transaccion_Tarjeta;
 with Length;
 with Tarjeta_Resultado;
 
-package Tarjeta_Credito_Service is
+--  FRONTERA SPARK: capa de servicios con access/despacho dinamico. Fuera de SPARK.
+package Tarjeta_Credito_Service with SPARK_Mode => Off is
 
    use Tarjeta_Credito;
    use Length;
